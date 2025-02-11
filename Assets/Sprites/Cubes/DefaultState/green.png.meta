@@ -103,10 +103,10 @@ TextureImporter:
       name: green_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 142
-        height: 162
+        x: 1
+        y: 1
+        width: 140
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4293850df8f6042ef8debb9ca17be137
     internalID: 0
     vertices: []
     indices: 
@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      green_0: -6099873399732076034
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

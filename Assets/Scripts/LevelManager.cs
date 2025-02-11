@@ -1,16 +1,20 @@
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public GameGrid gameGrid;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        LevelData levelData = LevelLoader.LoadLevelData();
+
+        if (levelData != null)
+        {
+            gameGrid.BuildGrid(levelData);
+        }
+        else
+        {
+            Debug.LogError("Failed to load level data.");
+        }
     }
 }

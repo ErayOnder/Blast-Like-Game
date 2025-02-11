@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour
 {
-    public LevelData LoadLevelData()
+    public static LevelData LoadLevelData()
     {
         int currentLevel = PlayerPrefs.GetInt("Level", 1);
         TextAsset levelTextAsset = Resources.Load<TextAsset>("Levels/level_" + currentLevel.ToString("00"));
