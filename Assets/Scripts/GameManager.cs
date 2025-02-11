@@ -1,0 +1,46 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameManager : Singleton<GameManager>
+{
+    [SerializeField]
+    private GameObject loadScreen;
+
+    public void ResetGame()
+    {
+        PlayerPrefs.SetInt("Level", 1);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void LevelCompleted()
+    {
+        PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void LoadLevel()
+    {
+        StartCoroutine(LoadLevelCoroutine("LevelScene"));
+    }
+
+    private IEnumerator LoadLevelCoroutine(string levelScene)
+    {
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(levelScene);
+
+        if (loadScreen == null)
+        {
+            Debug.LogWarning("LoadScreen not assigned in GameManager.");
+        }
+        loadScreen.SetActive(true);
+
+        while (!asyncOperation.isDone)
+        {
+            yield return null;
+        }
+        yield return new WaitForSeconds(0.5f);
+    }
+    
+}
