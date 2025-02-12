@@ -4,6 +4,8 @@ public class CubeItem : Item
 {
     private MatchType matchType;
 
+    public MatchType MatchType => matchType;
+
     public void InitializeConfig(ItemConfig config, MatchType matchType)
     {
         this.matchType = matchType;
@@ -13,4 +15,5 @@ public class CubeItem : Item
         base.InitializeFromProperties(config, sprite);
         Debug.Log("CubeItem initialized with match type: " + matchType);
     }
+
 }

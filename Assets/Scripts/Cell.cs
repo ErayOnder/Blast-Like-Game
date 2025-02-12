@@ -11,10 +11,8 @@ public class Cell : MonoBehaviour
 
     public GameGrid GameGrid { get; private set; }
 
-    // Backing field for the item on this cell.
     private Item item;
 
-    // Property for getting/setting the item on this cell.
     public Item Item
     {
         get => item;
@@ -37,13 +35,28 @@ public class Cell : MonoBehaviour
         }
     }
 
-    public void Prepare(int xCoord, int yCoord, GameGrid grid)
+    public void InitializeCell(int xCoord, int yCoord, GameGrid grid)
     {
         GameGrid = grid;
         X = xCoord;
         Y = yCoord;
         gameObject.name = $"cell_{X}_{Y}";
         transform.localPosition = new Vector3(X, Y);
+    }
+
+    public void CellTapped()
+    {
+        if (item == null)
+            return;
+
+        Debug.Log($"Cell tapped at: ({X}, {Y})");
+
+        CubeItem cubeItem = item as CubeItem;
+        if (cubeItem != null)
+        {
+            var matchingCells = MatchManager.Instance.FindMatches(this);
+            Debug.Log($"Match result: {matchingCells.Count} cells connected.");
+        }
     }
 
 }

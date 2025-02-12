@@ -209,6 +209,7 @@ GameObject:
   - component: {fileID: 951652756}
   - component: {fileID: 951652755}
   - component: {fileID: 951652754}
+  - component: {fileID: 951652757}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -290,6 +291,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &951652757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951652753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &1441475658
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,8 +576,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1853490620}
-  - component: {fileID: 1853490622}
   - component: {fileID: 1853490621}
+  - component: {fileID: 1853490622}
   m_Layer: 0
   m_Name: Borders
   m_TagString: Untagged
@@ -636,7 +653,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 10, y: 10}
+  m_Size: {x: 9.3, y: 9.3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

@@ -37,7 +37,7 @@ public class GameGrid : MonoBehaviour
             for (int x = 0; x < Width; x++)
             {
                 Grid[x, y] = Instantiate(cellPrefab, Vector3.zero, Quaternion.identity, cellsParent);
-                Grid[x, y].Prepare(x, y, this);
+                Grid[x, y].InitializeCell(x, y, this);
             }
         }        
 
