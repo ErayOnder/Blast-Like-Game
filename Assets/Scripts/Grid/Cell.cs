@@ -15,23 +15,22 @@ public class Cell : MonoBehaviour
 
     public Item Item
     {
-        get => item;
+        get
+        {
+            return item;
+        }
         set
         {
-            if (item == value)
-                return;
+            if (item == value) return;
 
-            if (item != null && item.Cell == this)
-            {
-                item.Cell = null;
-            }
-
+            var oldItem = item;
             item = value;
 
-            if (item != null && item.Cell != this)
-            {
-                item.Cell = this;
-            }
+            if (oldItem != null && Equals(oldItem.Cell, this))
+                oldItem.Cell = null;
+            
+            if (value != null)
+                value.Cell = this;
         }
     }
 
@@ -54,8 +53,7 @@ public class Cell : MonoBehaviour
         CubeItem cubeItem = item as CubeItem;
         if (cubeItem != null)
         {
-            var matchingCells = MatchManager.Instance.FindMatches(this);
-            Debug.Log($"Match result: {matchingCells.Count} cells connected.");
+            MatchResultProcessor.Instance.ProcessMatch(this);
         }
     }
 

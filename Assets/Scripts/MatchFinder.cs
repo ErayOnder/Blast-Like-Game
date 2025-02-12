@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MatchManager : Singleton<MatchManager>
+public class MatchFinder : Singleton<MatchFinder>
 {
     public List<Cell> FindMatches(Cell startCell)
     {

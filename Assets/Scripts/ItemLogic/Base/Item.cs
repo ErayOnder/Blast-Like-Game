@@ -15,22 +15,20 @@ public class Item : MonoBehaviour
 
     public Cell Cell
     {
-        get => cell;
+        get { return cell; }
         set
         {
-            if (cell == value)
-                return;
+            if(cell == value) return;
 
-            if (cell != null && cell.Item == this)
-            {
-                cell.Item = null;
-            }
-
+            var oldCell = cell;
             cell = value;
 
-            if (cell != null)
+            if (oldCell != null && oldCell.Item == this)
+                oldCell.Item = null;
+    
+            if(value != null)
             {
-                cell.Item = this;
+                value.Item = this;
                 gameObject.name = cell.gameObject.name + " " + GetType().Name;
             }
         }
@@ -65,5 +63,18 @@ public class Item : MonoBehaviour
         sr.sortingLayerID = SortingLayer.NameToID("Cell");
         sr.sortingOrder = BaseSortingOrder + childSpriteOrder++;
     }
+    
+    public virtual void TryExecute()
+    {
+        Debug.Log("Exploding item: " + gameObject.name);
+        
+        // TODO: Implement particle effects, sounds, etc.
 
+        if (Cell != null)
+        {
+            Cell.Item = null;
+        }
+        
+        Destroy(gameObject);
+    }
 }
