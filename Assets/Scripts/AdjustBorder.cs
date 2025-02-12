@@ -9,24 +9,35 @@ public class AdjustBorder : MonoBehaviour
     private const float WIDTH_PADDING = 0.35f;
     private const float HEIGHT_PADDING = 0.45f;
 
-    void OnEnable()
+    void Awake()
     {
         if (gameGrid != null)
+        {
             gameGrid.OnGridBuilt += UpdateBorder;
+            
+            if (gameGrid.Grid != null)
+            {
+                UpdateBorder();
+            }
+        }
     }
 
-    void OnDisable()
+    void OnDestroy()
     {
         if (gameGrid != null)
+        {
             gameGrid.OnGridBuilt -= UpdateBorder;
+        }
     }
 
     private void UpdateBorder()
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        float newWidth = gameGrid.Width + WIDTH_PADDING;
-        float newHeight = gameGrid.Height + HEIGHT_PADDING;
-        sr.size = new Vector2(newWidth, newHeight);
+        if (sr != null && gameGrid != null)
+        {
+            float newWidth = gameGrid.Width + WIDTH_PADDING;
+            float newHeight = gameGrid.Height + HEIGHT_PADDING;
+            sr.size = new Vector2(newWidth, newHeight);
+        }
     }
-
 }

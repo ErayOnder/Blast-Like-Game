@@ -8,10 +8,25 @@ public enum ItemType
     YellowCube,
     BlueCube,
     RedCube,
-    Rocket,
+    HorizontalRocket,
+    VerticalRocket,
     Box,
     Stone,
     VaseLayer1,
     VaseLayer2,
     
+}
+
+public enum MatchType
+{
+    Green,
+    Blue,
+    Red,
+    Yellow
+}
+
+public enum RocketType
+{
+    Horizontal,
+    Verical
 }

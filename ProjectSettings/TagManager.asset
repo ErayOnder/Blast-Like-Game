@@ -44,5 +44,8 @@ TagManager:
   - name: Border
     uniqueID: 1524113625
     locked: 0
+  - name: Cell
+    uniqueID: 217725543
+    locked: 0
   m_RenderingLayers:
   - Default

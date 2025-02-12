@@ -3,14 +3,23 @@ using UnityEngine;
 public class LevelManager : Singleton<LevelManager>
 {
     public GameGrid gameGrid;
+    
+    // Property to hold the current level info so other managers can access it.
+    public LevelInfo CurrentLevelInfo { get; private set; }
 
-    private void Start()
+    protected override void Awake()
     {
-        LevelData levelData = LevelLoader.LoadLevelData();
+        base.Awake();
+        
+        LevelInfo levelInfo = LevelLoader.LoadLevel();
 
-        if (levelData != null)
+        if (levelInfo != null)
         {
-            gameGrid.BuildGrid(levelData);
+            CurrentLevelInfo = levelInfo;
+            
+            gameGrid.BuildGrid(CurrentLevelInfo);
+            
+            ItemManager.Instance.InitializeItems(CurrentLevelInfo);
         }
         else
         {

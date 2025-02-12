@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e859f365aae491faf016a78a670894, type: 3}
   m_Name: BlueCubeItemConfig
   m_EditorClassIdentifier: 
-  ItemType: 2
+  ItemType: 3
   Clickable: 1
   Fallable: 1
   BlastsWithExlosion: 1

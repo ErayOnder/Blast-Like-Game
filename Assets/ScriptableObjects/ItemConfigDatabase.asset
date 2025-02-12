@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dbf950f2e4324b0fa045301082fe2d2, type: 3}
   m_Name: ItemConfigDatabase
   m_EditorClassIdentifier: 
-  itemConfigs: []
+  itemConfigs:
+  - {fileID: 11400000, guid: 71df540454a8e4396b7d27f47ff02d7e, type: 2}
+  - {fileID: 11400000, guid: 0df7f286e14b84ab695c880b54bffb78, type: 2}
+  - {fileID: 11400000, guid: bec45287c534f4186ab36a45adad8e2e, type: 2}
+  - {fileID: 11400000, guid: 05a81414b43d6495b8d21fc8cf293d9f, type: 2}
+  - {fileID: 11400000, guid: 531ec75f0199d4c0d886d99df636c770, type: 2}
+  - {fileID: 11400000, guid: 9733cecdcb9194ef0aa7f60aa3a4fafc, type: 2}
+  - {fileID: 11400000, guid: f83cc29ce7cd44d709e69d30715c8811, type: 2}
+  - {fileID: 11400000, guid: 17379199c4a7c48f4bdb6bdcbbd26eba, type: 2}

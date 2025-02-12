@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour
 {
-    public static LevelData LoadLevelData()
+    public static LevelInfo LoadLevel()
     {
         int currentLevel = PlayerPrefs.GetInt("Level", 1);
         TextAsset levelTextAsset = Resources.Load<TextAsset>("Levels/level_" + currentLevel.ToString("00"));
@@ -12,9 +12,9 @@ public class LevelLoader : MonoBehaviour
             Debug.LogError("Level data not found for level " + currentLevel);
         }
         
-        LevelData levelData = JsonUtility.FromJson<LevelData>(levelTextAsset.text);
+        LevelInfo levelInfo = JsonUtility.FromJson<LevelInfo>(levelTextAsset.text);
         Debug.Log("Loaded level " + currentLevel);
-        return levelData;
+        return levelInfo;
     }
     
 }

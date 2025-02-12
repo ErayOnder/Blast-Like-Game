@@ -7,6 +7,7 @@ public class GameGrid : MonoBehaviour
     [SerializeField]
     private Cell cellPrefab;
     public Transform cellsParent;
+    public Transform itemsParent;
 
     public Cell[,] Grid { get; private set; }    
     public int Width { get; private set; }
@@ -14,11 +15,11 @@ public class GameGrid : MonoBehaviour
 
     public event Action OnGridBuilt;
 
-    public void BuildGrid(LevelData levelData)
+    public void BuildGrid(LevelInfo levelinfo)
     {
 
-        Width = levelData.grid_width;
-        Height = levelData.grid_height;
+        Width = levelinfo.grid_width;
+        Height = levelinfo.grid_height;
         Grid = new Cell[Width, Height];
 
         if (cellsParent != null)

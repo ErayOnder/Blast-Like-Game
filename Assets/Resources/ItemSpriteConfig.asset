@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6150240dd63d74e6bac2b0d802168bef, type: 3}
+  m_Name: ItemSpriteConfig
+  m_EditorClassIdentifier: 
+  itemSpriteMappings:
+  - itemType: 1
+    sprite: {fileID: -6099873399732076034, guid: 76a63d6b1192f4fb39da7712177eaa4e, type: 3}
+  - itemType: 2
+    sprite: {fileID: -8425141836431729757, guid: e9132cff8a2bf42c68cd70eb6b91fc00, type: 3}
+  - itemType: 3
+    sprite: {fileID: -2615874204119335, guid: 460abcd2874ca412c9e7224d5aa64583, type: 3}
+  - itemType: 4
+    sprite: {fileID: 8166710274925509176, guid: 5fc480fed322948ca9635cccf0fc1db5, type: 3}
+  - itemType: 5
+    sprite: {fileID: 1184650260280522132, guid: 037a6458df62741559a33dc7d578b1bf, type: 3}
+  - itemType: 6
+    sprite: {fileID: 6449952862585347896, guid: 7599512a8d67f42f5816d0dc54b48028, type: 3}
+  - itemType: 7
+    sprite: {fileID: 7499154508442906066, guid: 6afcf06467ba44a45a5337dc088e2691, type: 3}
+  - itemType: 8
+    sprite: {fileID: 5725184139431673129, guid: 878e236be4c654475a056895eda73558, type: 3}
+  - itemType: 9
+    sprite: {fileID: -4678962038349899921, guid: 01d5da14e40b247a9b8a42f6ac7230fa, type: 3}
+  - itemType: 10
+    sprite: {fileID: -1432975368721100300, guid: 793c60eb229484005adbc7df90e529ec, type: 3}

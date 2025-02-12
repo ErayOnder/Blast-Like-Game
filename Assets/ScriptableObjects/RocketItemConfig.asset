@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e859f365aae491faf016a78a670894, type: 3}
   m_Name: RocketItemConfig
   m_EditorClassIdentifier: 
-  ItemType: 0
+  ItemType: 5
   Clickable: 1
   Fallable: 1
   BlastsWithExlosion: 0

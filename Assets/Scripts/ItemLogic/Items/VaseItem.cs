@@ -4,7 +4,10 @@ public class VaseItem : Item
 {
     public void InitializeConfig(ItemBase baseItem, ItemConfig config)
     {
-        transform.position = baseItem.transform.position;
+        var spriteConfig = Resources.Load<ItemSpriteConfig>("ItemSpriteConfig");
+        Sprite sprite = spriteConfig != null ? spriteConfig.GetSpriteForItemType(config.ItemType) : null;
+
+        base.InitializeFromProperties(config, sprite);
         Debug.Log("VaseItem initialized");
     }
 }
