@@ -384,6 +384,7 @@ GameObject:
   - component: {fileID: 1512503062}
   - component: {fileID: 1512503063}
   - component: {fileID: 1512503064}
+  - component: {fileID: 1512503065}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -448,6 +449,7 @@ MonoBehaviour:
   delayBeforeCascade: 0.05
   spawnOffsetY: 2
   useDelays: 0
+  bonusThreshold: 4
 --- !u!114 &1512503064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,7 +462,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69118c3289f654b868125d907e18b1c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMatchCount: 3
+  minMatchCount: 2
+  bonusThreshold: 4
+--- !u!114 &1512503065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512503059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9e50aa9b82a46d6b0738ca1390725d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleMappings:
+  - itemType: 1
+    particlePrefab: {fileID: 3439004282766877969, guid: 4327a386a4ed341bb9fc68c8cf93af70, type: 3}
+    poolSize: 10
+    pool: {fileID: 0}
+  - itemType: 2
+    particlePrefab: {fileID: 3439004282766877969, guid: c1b0aad1354bc47e58f7fbe70f5ff430, type: 3}
+    poolSize: 10
+    pool: {fileID: 0}
+  - itemType: 3
+    particlePrefab: {fileID: 3439004282766877969, guid: 23a0eec400cd44d1ca8a51f5d6e9aaef, type: 3}
+    poolSize: 10
+    pool: {fileID: 0}
+  - itemType: 4
+    particlePrefab: {fileID: 3439004282766877969, guid: 694ce937791634c9a881add017e834a8, type: 3}
+    poolSize: 10
+    pool: {fileID: 0}
+  - itemType: 7
+    particlePrefab: {fileID: 3439004282766877969, guid: cf3a369b59d4c4a64b4d7d4fd82972ca, type: 3}
+    poolSize: 10
+    pool: {fileID: 0}
+  - itemType: 8
+    particlePrefab: {fileID: 3439004282766877969, guid: 8d4d0062156d942479863e117fb91988, type: 3}
+    poolSize: 10
+    pool: {fileID: 0}
+  - itemType: 10
+    particlePrefab: {fileID: 3439004282766877969, guid: 7d1d1fc5a84df4de58971f4369a8183a, type: 3}
+    poolSize: 10
+    pool: {fileID: 0}
 --- !u!1 &1620049126
 GameObject:
   m_ObjectHideFlags: 0

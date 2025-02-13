@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CascadeManager : Singleton<CascadeManager>
 {
@@ -8,6 +9,9 @@ public class CascadeManager : Singleton<CascadeManager>
 
     // You can switch delays on/off via this flag.
     public bool useDelays = false;
+
+    // Define the bonus threshold for marking a group as bonus
+    public int bonusThreshold = 4;
 
     private GameGrid gameGrid;
 
@@ -84,12 +88,11 @@ public class CascadeManager : Singleton<CascadeManager>
                 }
             }
 
-            // Let the physics and animations update (or simply yield to the next frame).
+            // Let the physics and animations update.
             yield return null;
         } while (anyFallOccurred);
 
         // Second phase: fill in empty cells.
-        // Continuously check (update) the grid until every cell is filled.
         bool gridFilled;
         do
         {
@@ -110,12 +113,10 @@ public class CascadeManager : Singleton<CascadeManager>
                         cell.Item = newItem;
                         newItem.Fall();
 
-                        // Since we have found an empty cell, mark that grid is not full.
                         gridFilled = false;
 
                         if (useDelays)
                         {
-                            // Again, a short delay can be used to see the fill action.
                             yield return new WaitForSeconds(0.01f);
                         }
                     }
@@ -125,6 +126,62 @@ public class CascadeManager : Singleton<CascadeManager>
             yield return null;
         } while (!gridFilled);
 
+        // Once the cascade is complete, update bonus groups.
+        UpdateBonusGroups();
         yield break;
+    }
+
+    /// <summary>
+    /// Scans the entire grid to find bonus groups (cube groups with count >= bonusThreshold)
+    /// and updates their sprites to display the bonus indicator.
+    /// </summary>
+    public void UpdateBonusGroups()
+    {
+        HashSet<Cell> visited = new();
+        for (int x = 0; x < gameGrid.Width; x++)
+        {
+            for (int y = 0; y < gameGrid.Height; y++)
+            {
+                Cell cell = gameGrid.Grid[x, y];
+                if (cell.Item != null && !visited.Contains(cell))
+                {
+                    CubeItem cube = cell.Item as CubeItem;
+                    if (cube != null)
+                    {
+                        // Find the matching group for the cube.
+                        List<Cell> group = MatchFinder.FindMatches(cell);
+                        // Mark all cells in this group as visited.
+                        foreach (Cell groupCell in group)
+                        {
+                            visited.Add(groupCell);
+                        }
+                        // If the group's size qualifies for bonus, mark them.
+                        if (group.Count >= bonusThreshold)
+                        {
+                            foreach (Cell groupCell in group)
+                            {
+                                if (groupCell.Item is CubeItem bonusCube)
+                                {
+                                    bonusCube.IsBonus = true;
+                                    bonusCube.UpdateSpriteForBonus(); // Applies bonus sprite.
+                                }
+                            }
+                        }
+                        // Otherwise, if the group does not qualify, reset them to normal.
+                        else
+                        {
+                            foreach (Cell groupCell in group)
+                            {
+                                if (groupCell.Item is CubeItem normalCube)
+                                {
+                                    normalCube.IsBonus = false;
+                                    normalCube.ResetSpriteToNormal();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

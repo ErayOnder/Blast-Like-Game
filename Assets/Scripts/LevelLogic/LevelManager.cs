@@ -20,6 +20,7 @@ public class LevelManager : Singleton<LevelManager>
             gameGrid.BuildGrid(CurrentLevelInfo);
             
             ItemManager.Instance.InitializeItems(CurrentLevelInfo);
+            CascadeManager.Instance.UpdateBonusGroups();
         }
         else
         {

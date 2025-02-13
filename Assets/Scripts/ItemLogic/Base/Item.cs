@@ -12,7 +12,7 @@ public class Item : MonoBehaviour
     
     private const int BaseSortingOrder = 10;
     private static int childSpriteOrder;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] protected SpriteRenderer spriteRenderer;
     private Cell cell;
 
     public Cell Cell
@@ -71,6 +71,29 @@ public class Item : MonoBehaviour
             fallAnimation.item = this;
         }
     }
+
+        public void UpdateSpriteForBonus()
+    {
+        var spriteConfig = Resources.Load<ItemSpriteConfig>("ItemSpriteConfig");
+        if (spriteConfig != null)
+        {
+            Sprite bonusSprite = spriteConfig.GetBonusSpriteForItemType(itemType);
+            if (bonusSprite != null)
+            {
+                // Re-apply sprite settings using the bonus sprite.
+                ApplySpriteRendererProperties(spriteRenderer, bonusSprite);
+            }
+            else
+            {
+                Debug.LogWarning("No bonus sprite found for item type " + itemType);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("ItemSpriteConfig not found.");
+        }
+    }
+
     
     public void Fall()
     {
@@ -80,9 +103,7 @@ public class Item : MonoBehaviour
     
     public virtual void TryExecute()
     {
-        Debug.Log("Destroying item: " + gameObject.name);
-        
-        // TODO: Implement particle effects, sounds, etc.
+        ParticleManager.Instance.PlayParticle(this);
 
         if (Cell != null)
         {
@@ -92,10 +113,19 @@ public class Item : MonoBehaviour
         Destroy(gameObject);
     }
 
-        private void ApplySpriteRendererProperties(SpriteRenderer sr, Sprite sprite)
+    public virtual void ExecuteBonusEffect()
+    {
+        TryExecute();
+    }
+
+    protected void ApplySpriteRendererProperties(SpriteRenderer sr, Sprite sprite)
     {
         sr.sprite = sprite;
-        sr.transform.localPosition = Vector3.zero;
+        // Only reset the local position if the SpriteRenderer is not on the same GameObject as this Item.
+        if (sr.gameObject != gameObject)
+        {
+            sr.transform.localPosition = Vector3.zero;
+        }
         sr.transform.localScale = new Vector2(0.7f, 0.7f);
         sr.sortingLayerID = SortingLayer.NameToID("Cell");
         sr.sortingOrder = BaseSortingOrder + childSpriteOrder++;

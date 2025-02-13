@@ -7,6 +7,7 @@ public class ItemSpriteConfig : ScriptableObject
     public List<ItemSpriteMapping> itemSpriteMappings = new();
 
     private Dictionary<ItemType, Sprite> spriteDictionary;
+    private Dictionary<ItemType, Sprite> bonusSpriteDictionary;
 
     private void OnEnable()
     {
@@ -16,11 +17,17 @@ public class ItemSpriteConfig : ScriptableObject
     private void BuildDictionary()
     {
         spriteDictionary = new Dictionary<ItemType, Sprite>();
+        bonusSpriteDictionary = new Dictionary<ItemType, Sprite>();
+
         foreach (var mapping in itemSpriteMappings)
         {
             if (!spriteDictionary.ContainsKey(mapping.itemType))
             {
                 spriteDictionary.Add(mapping.itemType, mapping.sprite);
+            }
+            if (mapping.bonusSprite != null && !bonusSpriteDictionary.ContainsKey(mapping.itemType))
+            {
+                bonusSpriteDictionary.Add(mapping.itemType, mapping.bonusSprite);
             }
         }
     }
@@ -34,6 +41,16 @@ public class ItemSpriteConfig : ScriptableObject
         spriteDictionary.TryGetValue(itemType, out Sprite sprite);
         return sprite;
     }
+
+    public Sprite GetBonusSpriteForItemType(ItemType itemType)
+    {
+        if (bonusSpriteDictionary == null || bonusSpriteDictionary.Count == 0)
+        {
+            BuildDictionary();
+        }
+        bonusSpriteDictionary.TryGetValue(itemType, out Sprite bonusSprite);
+        return bonusSprite;
+    }
 }
 
 [System.Serializable]
@@ -41,4 +58,5 @@ public class ItemSpriteMapping
 {
     public ItemType itemType;
     public Sprite sprite;
+    public Sprite bonusSprite; // Bonus version of the sprite (assign in Inspector)
 }

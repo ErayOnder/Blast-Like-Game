@@ -14,7 +14,6 @@ public enum ItemType
     Stone,
     VaseLayer1,
     VaseLayer2,
-    
 }
 
 public enum MatchType
@@ -28,5 +27,5 @@ public enum MatchType
 public enum RocketType
 {
     Horizontal,
-    Verical
+    Vertical
 }

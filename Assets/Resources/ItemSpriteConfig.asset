@@ -15,21 +15,31 @@ MonoBehaviour:
   itemSpriteMappings:
   - itemType: 1
     sprite: {fileID: -6099873399732076034, guid: 76a63d6b1192f4fb39da7712177eaa4e, type: 3}
+    bonusSprite: {fileID: -8149426069742796037, guid: 7a5fba1a3fda84e2c8474b9e283f3324, type: 3}
   - itemType: 2
     sprite: {fileID: -8425141836431729757, guid: e9132cff8a2bf42c68cd70eb6b91fc00, type: 3}
+    bonusSprite: {fileID: 6090080599973395561, guid: d69470a8a07b94202855f0b71894ad9f, type: 3}
   - itemType: 3
     sprite: {fileID: -2615874204119335, guid: 460abcd2874ca412c9e7224d5aa64583, type: 3}
+    bonusSprite: {fileID: 8853254876290271475, guid: aa9604f179ed54ea99dad5bdddb95eb7, type: 3}
   - itemType: 4
     sprite: {fileID: 8166710274925509176, guid: 5fc480fed322948ca9635cccf0fc1db5, type: 3}
+    bonusSprite: {fileID: -4162601588504768772, guid: 0c357344ad5224bc09fe327a18cace7c, type: 3}
   - itemType: 5
     sprite: {fileID: 1184650260280522132, guid: 037a6458df62741559a33dc7d578b1bf, type: 3}
+    bonusSprite: {fileID: 0}
   - itemType: 6
     sprite: {fileID: 6449952862585347896, guid: 7599512a8d67f42f5816d0dc54b48028, type: 3}
+    bonusSprite: {fileID: 0}
   - itemType: 7
     sprite: {fileID: 7499154508442906066, guid: 6afcf06467ba44a45a5337dc088e2691, type: 3}
+    bonusSprite: {fileID: 0}
   - itemType: 8
     sprite: {fileID: 5725184139431673129, guid: 878e236be4c654475a056895eda73558, type: 3}
+    bonusSprite: {fileID: 0}
   - itemType: 9
     sprite: {fileID: -4678962038349899921, guid: 01d5da14e40b247a9b8a42f6ac7230fa, type: 3}
+    bonusSprite: {fileID: 0}
   - itemType: 10
     sprite: {fileID: -1432975368721100300, guid: 793c60eb229484005adbc7df90e529ec, type: 3}
+    bonusSprite: {fileID: 0}

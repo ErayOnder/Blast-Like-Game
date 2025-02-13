@@ -14,7 +14,7 @@ public class ItemFactory : Singleton<ItemFactory>
         { ItemType.RedCube, (itemBase) => CreateCubeItem(itemBase, MatchType.Red) },
         { ItemType.YellowCube, (itemBase) => CreateCubeItem(itemBase, MatchType.Yellow) },
         { ItemType.HorizontalRocket, (itemBase) => CreateRocketItem(itemBase, RocketType.Horizontal) },
-        { ItemType.VerticalRocket, (itemBase) => CreateRocketItem(itemBase, RocketType.Horizontal)},
+        { ItemType.VerticalRocket, (itemBase) => CreateRocketItem(itemBase, RocketType.Vertical) },
         { ItemType.Box, CreateBoxItem },
         { ItemType.Stone, CreateStoneItem },
         { ItemType.VaseLayer1, CreateVaseItem },
@@ -30,7 +30,7 @@ public class ItemFactory : Singleton<ItemFactory>
 
         if (!itemCreators.TryGetValue(itemType, out var createItem))
         {
-            Debug.LogWarning("Can not create item: " + itemType);
+            Debug.LogWarning("Cannot create item: " + itemType);
             return null;
         }
 
@@ -42,7 +42,6 @@ public class ItemFactory : Singleton<ItemFactory>
         var config = Instance.configDatabase.GetConfig(itemBase.ItemType);
         var cubeItem = itemBase.gameObject.AddComponent<CubeItem>();
         cubeItem.InitializeConfig(config, matchType);
-
         return cubeItem;
     }
 
@@ -50,8 +49,7 @@ public class ItemFactory : Singleton<ItemFactory>
     {
         var config = Instance.configDatabase.GetConfig(itemBase.ItemType);
         var rocketItem = itemBase.gameObject.AddComponent<RocketItem>();
-        rocketItem.InitializeConfig(itemBase, config, rocketType);
-
+        rocketItem.InitializeConfig(config, rocketType);
         return rocketItem;
     }
 
@@ -60,7 +58,6 @@ public class ItemFactory : Singleton<ItemFactory>
         var config = Instance.configDatabase.GetConfig(itemBase.ItemType);
         var boxItem = itemBase.gameObject.AddComponent<BoxItem>();
         boxItem.InitializeConfig(itemBase, config);
-
         return boxItem;
     }
 
@@ -69,7 +66,6 @@ public class ItemFactory : Singleton<ItemFactory>
         var config = Instance.configDatabase.GetConfig(itemBase.ItemType);
         var stoneItem = itemBase.gameObject.AddComponent<StoneItem>();
         stoneItem.InitializeConfig(itemBase, config);
-
         return stoneItem;
     }
 
@@ -78,7 +74,6 @@ public class ItemFactory : Singleton<ItemFactory>
         var config = Instance.configDatabase.GetConfig(itemBase.ItemType);
         var vaseItem = itemBase.gameObject.AddComponent<VaseItem>();
         vaseItem.InitializeConfig(itemBase, config);
-
         return vaseItem;
     }
 }
