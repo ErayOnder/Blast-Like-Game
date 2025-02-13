@@ -452,6 +452,7 @@ MonoBehaviour:
   spawnOffsetY: 2
   useDelays: 0
   bonusThreshold: 4
+  gameGrid: {fileID: 1779045172}
 --- !u!114 &1512503064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,6 +506,10 @@ MonoBehaviour:
     pool: {fileID: 0}
   - itemType: 8
     particlePrefab: {fileID: 3439004282766877969, guid: 7d1d1fc5a84df4de58971f4369a8183a, type: 3}
+    poolSize: 10
+    pool: {fileID: 0}
+  - itemType: 5
+    particlePrefab: {fileID: 3439004282766877969, guid: 8e93496aaf77c42759134e39781c3dc7, type: 3}
     poolSize: 10
     pool: {fileID: 0}
 --- !u!114 &1512503066

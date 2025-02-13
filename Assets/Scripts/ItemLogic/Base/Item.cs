@@ -101,7 +101,7 @@ public class Item : MonoBehaviour
         fallAnimation.FallTo(cell.GetFallTarget());
     }
     
-    public void TryExecute()
+    public virtual void TryExecute(DamageSource source)
     {
         ParticleManager.Instance.PlayParticle(this);
 
@@ -111,11 +111,6 @@ public class Item : MonoBehaviour
         }
         
         Destroy(gameObject);
-    }
-
-    public virtual void ExecuteBonusEffect()
-    {
-        TryExecute();
     }
 
     protected void ApplySpriteRendererProperties(SpriteRenderer sr, Sprite sprite)

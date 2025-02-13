@@ -48,7 +48,7 @@ public class RocketManager : Singleton<RocketManager>
             ProcessExplosionDirection(originCell, 0, -1, rocket.RocketType);
         }
 
-        rocket.TryExecute();
+        rocket.TryExecute(DamageSource.Rocket);
     }
 
     // Combo explosion logic
@@ -70,7 +70,7 @@ public class RocketManager : Singleton<RocketManager>
             {
                 rocket.Cell.Item = null;
             }
-            rocket.TryExecute();
+            rocket.TryExecute(DamageSource.Rocket);
         }
 
         // First, destroy all items inside the 3x3 block centered at the tapped cell.
@@ -96,12 +96,12 @@ public class RocketManager : Singleton<RocketManager>
                     }
                     else
                     {
-                        targetRocket.ExecuteBonusEffect();
+                        targetRocket.TryExecute(DamageSource.Rocket);
                     }
                 }
                 else
                 {
-                    targetItem.TryExecute();
+                    targetItem.TryExecute(DamageSource.Rocket);
                 }
             }
         }
@@ -245,12 +245,12 @@ public class RocketManager : Singleton<RocketManager>
                 }
                 else
                 {
-                    targetRocket.ExecuteBonusEffect();
+                    targetRocket.TryExecute(DamageSource.Rocket);
                 }
             }
             else
             {
-                targetItem.TryExecute();
+                targetItem.TryExecute(DamageSource.Rocket);
             }
         }
     }

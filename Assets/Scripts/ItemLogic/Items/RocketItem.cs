@@ -21,9 +21,4 @@ public class RocketItem : Item
         base.InitializeFromProperties(config, selectedSprite);
     }
 
-    public override void ExecuteBonusEffect()
-    {
-        // TODO: Implement rocket explosion animations
-        base.ExecuteBonusEffect();
-    }
 }

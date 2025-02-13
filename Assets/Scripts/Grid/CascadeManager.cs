@@ -13,22 +13,11 @@ public class CascadeManager : Singleton<CascadeManager>
     // Define the bonus threshold for marking a group as bonus
     public int bonusThreshold = 4;
 
-    private GameGrid gameGrid;
+    public GameGrid gameGrid;
 
     protected override void Awake()
     {
         base.Awake();
-
-        GameObject gridObject = GameObject.FindWithTag("GameGrid");
-        if (gridObject != null)
-        {
-            gameGrid = gridObject.GetComponent<GameGrid>();
-        }
-        else
-        {
-            Debug.LogError("GameGrid with tag 'GameGrid' not found in the scene!");
-        }
-
         // Subscribe to the central board updated event.
         GameEvents.OnBoardUpdated += StartCascade;
     }
@@ -70,9 +59,9 @@ public class CascadeManager : Singleton<CascadeManager>
                     if (cell != null && cell.Item != null)
                     {
                         Cell fallTarget = cell.GetFallTarget();
-                        if (fallTarget != cell)
+                        // Only trigger the fall if the item is fallable.
+                        if (fallTarget != cell && cell.Item.fallable)
                         {
-                            // Make the item fall and mark that a move has occurred.
                             cell.Item.Fall();
                             anyFallOccurred = true;
 
@@ -95,32 +84,40 @@ public class CascadeManager : Singleton<CascadeManager>
         do
         {
             gridFilled = true;
-
             for (int x = 0; x < gameGrid.Width; x++)
             {
+                // Iterate from the top of the column downward.
                 for (int y = gameGrid.Height - 1; y >= 0; y--)
                 {
                     Cell cell = gameGrid.Grid[x, y];
-                    if (cell != null && cell.Item == null)
+                    if (cell != null)
                     {
-                        // Spawn a new item in the empty cell.
-                        ItemType newType = LevelData.GetRandomCubeItemType();
-                        Item newItem = ItemFactory.Instance.CreateItem(newType, gameGrid.itemsParent);
-                        Vector3 spawnPos = cell.transform.position + new Vector3(0, spawnOffsetY, 0);
-                        newItem.transform.position = spawnPos;
-                        cell.Item = newItem;
-                        newItem.Fall();
-
-                        gridFilled = false;
-
-                        if (useDelays)
+                        // If you encounter an unfallable item, this cell acts as a barrier for new fills.
+                        if (cell.Item != null && !cell.Item.fallable)
                         {
-                            yield return new WaitForSeconds(0.01f);
+                            // Stop processing this column so that any empty cells below remain unfilled.
+                            break;
+                        }
+                        if (cell.Item == null)
+                        {
+                            // Only fill if the cell is empty and we haven't hit a blocking item.
+                            ItemType newType = LevelData.GetRandomCubeItemType();
+                            Item newItem = ItemFactory.Instance.CreateItem(newType, gameGrid.itemsParent);
+                            Vector3 spawnPos = cell.transform.position + new Vector3(0, spawnOffsetY, 0);
+                            newItem.transform.position = spawnPos;
+                            cell.Item = newItem;
+                            newItem.Fall();
+                            
+                            gridFilled = false;
+                            
+                            if (useDelays)
+                            {
+                                yield return new WaitForSeconds(0.01f);
+                            }
                         }
                     }
                 }
             }
-            // Let the new items fall and update the grid.
             yield return null;
         } while (!gridFilled);
 
