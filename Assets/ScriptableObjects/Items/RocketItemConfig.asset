@@ -15,5 +15,5 @@ MonoBehaviour:
   ItemType: 5
   Clickable: 1
   Fallable: 1
-  BlastsWithExlosion: 0
+  BlastsWithExlosion: 1
   Health: 1

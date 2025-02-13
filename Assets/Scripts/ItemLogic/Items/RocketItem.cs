@@ -21,14 +21,9 @@ public class RocketItem : Item
         base.InitializeFromProperties(config, selectedSprite);
     }
 
-    public override void TryExecute()
+    public override void ExecuteBonusEffect()
     {
-        Debug.Log($"{gameObject.name} executing rocket explosion effect ({rocketType})!");
-        ParticleManager.Instance.PlayParticle(this);
-        if (Cell != null)
-        {
-            Cell.Item = null;
-        }
-        Destroy(gameObject);
+        // TODO: Implement rocket explosion animations
+        base.ExecuteBonusEffect();
     }
 }

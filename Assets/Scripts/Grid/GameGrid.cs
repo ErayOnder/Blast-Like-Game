@@ -13,11 +13,8 @@ public class GameGrid : MonoBehaviour
     public int Width { get; private set; }
     public int Height { get; private set; }
 
-    public event Action OnGridBuilt;
-
     public void BuildGrid(LevelInfo levelinfo)
     {
-
         Width = levelinfo.grid_width;
         Height = levelinfo.grid_height;
         Grid = new Cell[Width, Height];
@@ -41,7 +38,7 @@ public class GameGrid : MonoBehaviour
             }
         }        
 
-        OnGridBuilt?.Invoke();
+        GameEvents.BoardUpdated();
     }
 
     private void ResizeBoard()

@@ -23,8 +23,6 @@ public class FallAnimation : MonoBehaviour
             Debug.Log("FallAnimation: Invalid target cell for " + (item != null ? item.gameObject.name : "null"));
             return;
         }
-
-        Debug.Log(item.gameObject.name + " falling from " + item.transform.position + " to target cell at (" + newTargetCell.X + "," + newTargetCell.Y + ")");
         SetTargetCell(newTargetCell);
         AnimateFall();
     }
@@ -52,7 +50,6 @@ public class FallAnimation : MonoBehaviour
         item.transform.DOMoveY(targetPosition.y, animationDuration)
             .SetEase(Ease.InCubic)
             .OnComplete(() => {
-                Debug.Log(item.gameObject.name + " finished falling to " + targetPosition);
                 targetCell = null;
             });
     }

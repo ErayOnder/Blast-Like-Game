@@ -14,14 +14,6 @@ public class CubeItem : Item
         Sprite sprite = spriteConfig != null ? spriteConfig.GetSpriteForItemType(config.ItemType) : null;
         base.InitializeFromProperties(config, sprite);
     }
-    
-    public override void ExecuteBonusEffect()
-    {
-        Debug.Log(gameObject.name + " executing bonus effect.");
-        // Bonus effect logic can be added here (for example, clearing additional cells, special animations, etc.).
-        // For now, we simply remove the item.
-        TryExecute();
-    }
 
     public void ResetSpriteToNormal(ItemSpriteConfig spriteConfig)
     {

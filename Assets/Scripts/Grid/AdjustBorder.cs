@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 
 public class AdjustBorder : MonoBehaviour
 {
-    [SerializeField] 
+    [SerializeField]
     private GameGrid gameGrid;
 
     private const float WIDTH_PADDING = 0.35f;
@@ -11,23 +10,17 @@ public class AdjustBorder : MonoBehaviour
 
     void Awake()
     {
-        if (gameGrid != null)
+        GameEvents.OnBoardUpdated += UpdateBorder;
+        
+        if (gameGrid != null && gameGrid.Grid != null)
         {
-            gameGrid.OnGridBuilt += UpdateBorder;
-            
-            if (gameGrid.Grid != null)
-            {
-                UpdateBorder();
-            }
+            UpdateBorder();
         }
     }
 
     void OnDestroy()
     {
-        if (gameGrid != null)
-        {
-            gameGrid.OnGridBuilt -= UpdateBorder;
-        }
+        GameEvents.OnBoardUpdated -= UpdateBorder;
     }
 
     private void UpdateBorder()

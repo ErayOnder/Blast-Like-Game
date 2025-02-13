@@ -48,11 +48,11 @@ public class Cell : MonoBehaviour
         if (item == null)
             return;
 
-        // If the tapped item is a rocket, delegate to RocketLogic.
+        // If the tapped item is a rocket, delegate to Rocket logic.
         RocketItem rocket = item as RocketItem;
         if (rocket != null)
         {
-            //RocketLogic.Instance.ProcessRocket(this);
+            RocketManager.Instance.ExplodeRocket(rocket);
             return;
         }
 

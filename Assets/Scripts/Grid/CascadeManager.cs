@@ -29,15 +29,13 @@ public class CascadeManager : Singleton<CascadeManager>
             Debug.LogError("GameGrid with tag 'GameGrid' not found in the scene!");
         }
 
-        MatchResultProcessor.Instance.OnBoardUpdated += StartCascade;
+        // Subscribe to the central board updated event.
+        GameEvents.OnBoardUpdated += StartCascade;
     }
 
     private void OnDestroy()
     {
-        if (MatchResultProcessor.Instance != null)
-        {
-            MatchResultProcessor.Instance.OnBoardUpdated -= StartCascade;
-        }
+        GameEvents.OnBoardUpdated -= StartCascade;
     }
 
     private void StartCascade()

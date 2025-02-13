@@ -385,6 +385,7 @@ GameObject:
   - component: {fileID: 1512503063}
   - component: {fileID: 1512503064}
   - component: {fileID: 1512503065}
+  - component: {fileID: 1512503066}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -494,18 +495,30 @@ MonoBehaviour:
     particlePrefab: {fileID: 3439004282766877969, guid: 694ce937791634c9a881add017e834a8, type: 3}
     poolSize: 10
     pool: {fileID: 0}
-  - itemType: 7
+  - itemType: 6
     particlePrefab: {fileID: 3439004282766877969, guid: cf3a369b59d4c4a64b4d7d4fd82972ca, type: 3}
     poolSize: 10
     pool: {fileID: 0}
-  - itemType: 8
+  - itemType: 7
     particlePrefab: {fileID: 3439004282766877969, guid: 8d4d0062156d942479863e117fb91988, type: 3}
     poolSize: 10
     pool: {fileID: 0}
-  - itemType: 10
+  - itemType: 8
     particlePrefab: {fileID: 3439004282766877969, guid: 7d1d1fc5a84df4de58971f4369a8183a, type: 3}
     poolSize: 10
     pool: {fileID: 0}
+--- !u!114 &1512503066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512503059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de4a2440e5a404bcfa32ffa6fcb223a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1620049126
 GameObject:
   m_ObjectHideFlags: 0

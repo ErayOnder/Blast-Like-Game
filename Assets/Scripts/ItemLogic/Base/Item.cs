@@ -101,7 +101,7 @@ public class Item : MonoBehaviour
         fallAnimation.FallTo(cell.GetFallTarget());
     }
     
-    public virtual void TryExecute()
+    public void TryExecute()
     {
         ParticleManager.Instance.PlayParticle(this);
 
