@@ -382,6 +382,8 @@ GameObject:
   - component: {fileID: 1512503060}
   - component: {fileID: 1512503061}
   - component: {fileID: 1512503062}
+  - component: {fileID: 1512503063}
+  - component: {fileID: 1512503064}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -431,6 +433,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemBasePrefab: {fileID: 4330867544547054279, guid: 6f8351769d5ef4130849d68950fd6a7a, type: 3}
   configDatabase: {fileID: 11400000, guid: a0237c24663084cada9afdc1b5ae0d11, type: 2}
+--- !u!114 &1512503063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512503059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8717192e2a8bd4e6f94c9f86a2c19a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayBeforeCascade: 0.05
+  spawnOffsetY: 2
+  useDelays: 0
+--- !u!114 &1512503064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512503059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69118c3289f654b868125d907e18b1c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minMatchCount: 3
 --- !u!1 &1620049126
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +560,7 @@ GameObject:
   - component: {fileID: 1779045172}
   m_Layer: 0
   m_Name: GameGrid
-  m_TagString: Untagged
+  m_TagString: GameGrid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

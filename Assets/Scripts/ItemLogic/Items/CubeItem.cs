@@ -13,7 +13,6 @@ public class CubeItem : Item
         Sprite sprite = spriteConfig != null ? spriteConfig.GetSpriteForItemType(config.ItemType) : null;
 
         base.InitializeFromProperties(config, sprite);
-        Debug.Log("CubeItem initialized with match type: " + matchType);
     }
 
 }

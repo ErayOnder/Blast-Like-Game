@@ -7,5 +7,5 @@ public class ItemBase : MonoBehaviour
     public bool Fallable = true;
     public bool BlastsWithExlosion = false;
     public int Health = 1;
-    //public FallAnimation FallAnimationPrefab;
+    public FallAnimation FallAnimation;
 }

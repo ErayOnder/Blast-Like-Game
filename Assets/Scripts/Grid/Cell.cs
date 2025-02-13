@@ -48,8 +48,6 @@ public class Cell : MonoBehaviour
         if (item == null)
             return;
 
-        Debug.Log($"Cell tapped at: ({X}, {Y})");
-
         CubeItem cubeItem = item as CubeItem;
         if (cubeItem != null)
         {
@@ -57,4 +55,28 @@ public class Cell : MonoBehaviour
         }
     }
 
+    public Cell GetCellBelow()
+    {
+        if (GameGrid != null && Y > 0)
+            return GameGrid.Grid[X, Y - 1];
+        return null;
+    }
+
+    public Cell GetFallTarget()
+    {
+        Cell targetCell = this;
+        while (true)
+        {
+            Cell below = targetCell.GetCellBelow();
+            if (below != null && below.Item == null)
+            {
+                targetCell = below;
+            }
+            else
+            {
+                break;
+            }
+        }
+        return targetCell;
+    }
 }

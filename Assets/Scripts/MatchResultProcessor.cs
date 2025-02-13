@@ -15,7 +15,7 @@ public class MatchResultProcessor : Singleton<MatchResultProcessor>
             return;
         }
 
-        List<Cell> matchedCells = MatchFinder.Instance.FindMatches(startCell);
+        List<Cell> matchedCells = MatchFinder.FindMatches(startCell);
         
         if (matchedCells.Count < minMatchCount)
         {
@@ -32,7 +32,8 @@ public class MatchResultProcessor : Singleton<MatchResultProcessor>
                 cell.Item.TryExecute();
             }
         }
-
+        Debug.Log("Invoking cascade via OnBoardUpdated event.");
+        
         // Notify other systems (e.g., fall-and-fill manager) that the board has changed.
         OnBoardUpdated?.Invoke();
     }

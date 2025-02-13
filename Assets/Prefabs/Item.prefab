@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8078166125312780498}
   - component: {fileID: 4330867544547054279}
+  - component: {fileID: 1305064139512631321}
   - component: {fileID: 5910030630791679265}
   m_Layer: 0
   m_Name: Item
@@ -50,6 +51,21 @@ MonoBehaviour:
   Fallable: 1
   BlastsWithExlosion: 0
   Health: 1
+  FallAnimation: {fileID: 1305064139512631321}
+--- !u!114 &1305064139512631321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4251168575453012464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cec0a27f754e44b2c9e8cd66fbe74f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  animationDuration: 0.35
 --- !u!212 &5910030630791679265
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MatchFinder : Singleton<MatchFinder>
+public static class MatchFinder
 {
-    public List<Cell> FindMatches(Cell startCell)
+    public static List<Cell> FindMatches(Cell startCell)
     {
         List<Cell> matchedCells = new();
 
@@ -46,11 +46,10 @@ public class MatchFinder : Singleton<MatchFinder>
             }
         }
 
-        Debug.Log($"Found {matchedCells.Count} matching cells for match type: {targetMatchType}");
         return matchedCells;
     }
 
-    private List<Cell> GetAdjacentCells(Cell cell)
+    private static List<Cell> GetAdjacentCells(Cell cell)
     {
         List<Cell> neighbors = new List<Cell>();
         GameGrid grid = cell.GameGrid;
