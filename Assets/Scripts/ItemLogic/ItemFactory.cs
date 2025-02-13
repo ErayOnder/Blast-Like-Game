@@ -6,6 +6,7 @@ public class ItemFactory : Singleton<ItemFactory>
 {
     public ItemBase ItemBasePrefab;
     public ItemConfigDatabase configDatabase;
+    public ItemSpriteConfig spriteConfig;
 
     private readonly Dictionary<ItemType, Func<ItemBase, Item>> itemCreators = new()
     {
@@ -13,12 +14,10 @@ public class ItemFactory : Singleton<ItemFactory>
         { ItemType.BlueCube, (itemBase) => CreateCubeItem(itemBase, MatchType.Blue) },
         { ItemType.RedCube, (itemBase) => CreateCubeItem(itemBase, MatchType.Red) },
         { ItemType.YellowCube, (itemBase) => CreateCubeItem(itemBase, MatchType.Yellow) },
-        { ItemType.HorizontalRocket, (itemBase) => CreateRocketItem(itemBase, RocketType.Horizontal) },
-        { ItemType.VerticalRocket, (itemBase) => CreateRocketItem(itemBase, RocketType.Vertical) },
+        { ItemType.Rocket, CreateRocketItem },
         { ItemType.Box, CreateBoxItem },
         { ItemType.Stone, CreateStoneItem },
-        { ItemType.VaseLayer1, CreateVaseItem },
-        { ItemType.VaseLayer2, CreateVaseItem }
+        { ItemType.Vase, CreateVaseItem }
     };
 
     public Item CreateItem(ItemType itemType, Transform parent)
@@ -41,15 +40,17 @@ public class ItemFactory : Singleton<ItemFactory>
     {
         var config = Instance.configDatabase.GetConfig(itemBase.ItemType);
         var cubeItem = itemBase.gameObject.AddComponent<CubeItem>();
-        cubeItem.InitializeConfig(config, matchType);
+        cubeItem.InitializeConfig(config, Instance.spriteConfig, matchType);
         return cubeItem;
     }
 
-    private static Item CreateRocketItem(ItemBase itemBase, RocketType rocketType)
+    private static Item CreateRocketItem(ItemBase itemBase)
     {
         var config = Instance.configDatabase.GetConfig(itemBase.ItemType);
         var rocketItem = itemBase.gameObject.AddComponent<RocketItem>();
-        rocketItem.InitializeConfig(config, rocketType);
+        RocketType rocketOrientation = UnityEngine.Random.value > 0.5f ? RocketType.Horizontal : RocketType.Vertical;
+
+        rocketItem.InitializeConfig(config, Instance.spriteConfig, rocketOrientation);
         return rocketItem;
     }
 
@@ -57,7 +58,7 @@ public class ItemFactory : Singleton<ItemFactory>
     {
         var config = Instance.configDatabase.GetConfig(itemBase.ItemType);
         var boxItem = itemBase.gameObject.AddComponent<BoxItem>();
-        boxItem.InitializeConfig(itemBase, config);
+        boxItem.InitializeConfig(config, Instance.spriteConfig);
         return boxItem;
     }
 
@@ -65,7 +66,7 @@ public class ItemFactory : Singleton<ItemFactory>
     {
         var config = Instance.configDatabase.GetConfig(itemBase.ItemType);
         var stoneItem = itemBase.gameObject.AddComponent<StoneItem>();
-        stoneItem.InitializeConfig(itemBase, config);
+        stoneItem.InitializeConfig(config, Instance.spriteConfig);
         return stoneItem;
     }
 
@@ -73,7 +74,7 @@ public class ItemFactory : Singleton<ItemFactory>
     {
         var config = Instance.configDatabase.GetConfig(itemBase.ItemType);
         var vaseItem = itemBase.gameObject.AddComponent<VaseItem>();
-        vaseItem.InitializeConfig(itemBase, config);
+        vaseItem.InitializeConfig(config, Instance.spriteConfig);
         return vaseItem;
     }
 }

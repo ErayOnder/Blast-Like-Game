@@ -434,6 +434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemBasePrefab: {fileID: 4330867544547054279, guid: 6f8351769d5ef4130849d68950fd6a7a, type: 3}
   configDatabase: {fileID: 11400000, guid: a0237c24663084cada9afdc1b5ae0d11, type: 2}
+  spriteConfig: {fileID: 11400000, guid: 0450a8a9202e7418890aa5891cc97c5d, type: 2}
 --- !u!114 &1512503063
 MonoBehaviour:
   m_ObjectHideFlags: 0

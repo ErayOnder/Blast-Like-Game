@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 [Serializable]
 public class LevelInfo
@@ -68,7 +69,7 @@ public class LevelData
 
     private static bool IsObstacle(ItemType type)
     {
-        return type == ItemType.Box || type == ItemType.Stone || type == ItemType.VaseLayer1 || type == ItemType.VaseLayer2;
+        return type == ItemType.Box || type == ItemType.Stone || type == ItemType.Vase;
     }
 
     private static ItemType MapCellToItemType(string cell)
@@ -77,14 +78,14 @@ public class LevelData
         {
             "bo" => ItemType.Box,
             "s" => ItemType.Stone,
-            "v" => ItemType.VaseLayer1,
+            "v" => ItemType.Vase,
             "b" => ItemType.BlueCube,
             "g" => ItemType.GreenCube,
             "r" => ItemType.RedCube,
             "y" => ItemType.YellowCube,
             "rand" => GetRandomCubeItemType(),
-            "hro" => ItemType.HorizontalRocket,
-            "vro" => ItemType.VerticalRocket,
+            "hro" => ItemType.Rocket,
+            "vro" => ItemType.Rocket,
             _ => GetRandomCubeItemType(),
         };
     }

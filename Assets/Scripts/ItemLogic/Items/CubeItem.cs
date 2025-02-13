@@ -6,18 +6,15 @@ public class CubeItem : Item
 
     public MatchType MatchType => matchType;
 
-    // Flag to indicate bonus status.
     public bool IsBonus { get; set; }
 
-    public void InitializeConfig(ItemConfig config, MatchType matchType)
+    public void InitializeConfig(ItemConfig config, ItemSpriteConfig spriteConfig, MatchType matchType)
     {
         this.matchType = matchType;
-        var spriteConfig = Resources.Load<ItemSpriteConfig>("ItemSpriteConfig");
         Sprite sprite = spriteConfig != null ? spriteConfig.GetSpriteForItemType(config.ItemType) : null;
         base.InitializeFromProperties(config, sprite);
     }
     
-    // Override the bonus effect execution for cube items.
     public override void ExecuteBonusEffect()
     {
         Debug.Log(gameObject.name + " executing bonus effect.");
@@ -26,9 +23,8 @@ public class CubeItem : Item
         TryExecute();
     }
 
-    public void ResetSpriteToNormal()
+    public void ResetSpriteToNormal(ItemSpriteConfig spriteConfig)
     {
-        var spriteConfig = Resources.Load<ItemSpriteConfig>("ItemSpriteConfig");
         if (spriteConfig != null)
         {
             Sprite normalSprite = spriteConfig.GetSpriteForItemType(itemType);

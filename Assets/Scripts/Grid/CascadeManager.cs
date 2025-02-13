@@ -175,7 +175,7 @@ public class CascadeManager : Singleton<CascadeManager>
                                 if (groupCell.Item is CubeItem normalCube)
                                 {
                                     normalCube.IsBonus = false;
-                                    normalCube.ResetSpriteToNormal();
+                                    normalCube.ResetSpriteToNormal(ItemFactory.Instance.spriteConfig);
                                 }
                             }
                         }

@@ -6,12 +6,19 @@ public class RocketItem : Item
 
     public RocketType RocketType => rocketType;
 
-    public void InitializeConfig(ItemConfig config, RocketType rocketType)
+    public void InitializeConfig(ItemConfig config, ItemSpriteConfig spriteConfig, RocketType rocketType)
     {
         this.rocketType = rocketType;
-        var spriteConfig = Resources.Load<ItemSpriteConfig>("ItemSpriteConfig");
-        Sprite sprite = spriteConfig != null ? spriteConfig.GetSpriteForItemType(config.ItemType) : null;
-        base.InitializeFromProperties(config, sprite);
+        Sprite selectedSprite = null;
+        if (spriteConfig != null)
+        {
+            // Use the normal sprite for Horizontal rockets
+            // Use the bonus sprite (assigned as vertical) for Vertical rockets.
+            selectedSprite = rocketType == RocketType.Horizontal ?
+                spriteConfig.GetSpriteForItemType(config.ItemType) :
+                spriteConfig.GetBonusSpriteForItemType(config.ItemType);
+        }
+        base.InitializeFromProperties(config, selectedSprite);
     }
 
     public override void TryExecute()

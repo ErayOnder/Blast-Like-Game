@@ -37,15 +37,26 @@ public class MatchResultProcessor : Singleton<MatchResultProcessor>
 
         if (containsBonus)
         {
-            // Delegate bonus processing (animation, removal, RocketItem creation, etc.)
-            // to a separate logic class.
-            //RocketLogic.Instance.ProcessBonusGroup(matchedCells, startCell);
-            Debug.Log("Rockettoo");
-            // Process a standard match by executing each item's removal.
+            // First, destroy all matched items including the tapped cell's cube.
+            foreach (Cell cell in matchedCells)
+            {
+                if (cell.Item != null)
+                {
+                    cell.Item.TryExecute();
+                }
+            }
+            
+            // Then, create the rocket item on the tapped cell.
+            Item rocket = ItemFactory.Instance.CreateItem(ItemType.Rocket, startCell.GameGrid.itemsParent);
+            if (rocket != null)
+            {
+                startCell.Item = rocket;
+                rocket.transform.position = startCell.transform.position;
+            }
         }
         else
         {
-            // Process a standard match by executing each item's removal.
+            // Standard match processing: execute removal on every matched cell.
             foreach (Cell cell in matchedCells)
             {
                 if (cell.Item != null)
@@ -55,7 +66,6 @@ public class MatchResultProcessor : Singleton<MatchResultProcessor>
             }
         }
 
-        Debug.Log($"Processed {matchedCells.Count} matched cubes. Bonus match: {containsBonus}");
         OnBoardUpdated?.Invoke();
     }
 } 

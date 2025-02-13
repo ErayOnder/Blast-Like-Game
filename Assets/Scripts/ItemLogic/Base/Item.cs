@@ -72,9 +72,9 @@ public class Item : MonoBehaviour
         }
     }
 
-        public void UpdateSpriteForBonus()
+    public void UpdateSpriteForBonus()
     {
-        var spriteConfig = Resources.Load<ItemSpriteConfig>("ItemSpriteConfig");
+        var spriteConfig = ItemFactory.Instance.spriteConfig;
         if (spriteConfig != null)
         {
             Sprite bonusSprite = spriteConfig.GetBonusSpriteForItemType(itemType);

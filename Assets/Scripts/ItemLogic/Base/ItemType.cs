@@ -8,12 +8,10 @@ public enum ItemType
     YellowCube,
     BlueCube,
     RedCube,
-    HorizontalRocket,
-    VerticalRocket,
+    Rocket,
     Box,
     Stone,
-    VaseLayer1,
-    VaseLayer2,
+    Vase
 }
 
 public enum MatchType

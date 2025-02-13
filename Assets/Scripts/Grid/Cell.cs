@@ -48,8 +48,17 @@ public class Cell : MonoBehaviour
         if (item == null)
             return;
 
-        CubeItem cubeItem = item as CubeItem;
-        if (cubeItem != null)
+        // If the tapped item is a rocket, delegate to RocketLogic.
+        RocketItem rocket = item as RocketItem;
+        if (rocket != null)
+        {
+            //RocketLogic.Instance.ProcessRocket(this);
+            return;
+        }
+
+        // Otherwise, if it's a cube, delegate the match processing.
+        CubeItem cube = item as CubeItem;
+        if (cube != null)
         {
             MatchResultProcessor.Instance.ProcessMatch(this);
         }

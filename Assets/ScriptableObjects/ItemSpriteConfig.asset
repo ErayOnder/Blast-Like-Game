@@ -27,19 +27,13 @@ MonoBehaviour:
     bonusSprite: {fileID: -4162601588504768772, guid: 0c357344ad5224bc09fe327a18cace7c, type: 3}
   - itemType: 5
     sprite: {fileID: 1184650260280522132, guid: 037a6458df62741559a33dc7d578b1bf, type: 3}
-    bonusSprite: {fileID: 0}
+    bonusSprite: {fileID: 6449952862585347896, guid: 7599512a8d67f42f5816d0dc54b48028, type: 3}
   - itemType: 6
-    sprite: {fileID: 6449952862585347896, guid: 7599512a8d67f42f5816d0dc54b48028, type: 3}
-    bonusSprite: {fileID: 0}
-  - itemType: 7
     sprite: {fileID: 7499154508442906066, guid: 6afcf06467ba44a45a5337dc088e2691, type: 3}
     bonusSprite: {fileID: 0}
-  - itemType: 8
+  - itemType: 7
     sprite: {fileID: 5725184139431673129, guid: 878e236be4c654475a056895eda73558, type: 3}
     bonusSprite: {fileID: 0}
-  - itemType: 9
+  - itemType: 8
     sprite: {fileID: -4678962038349899921, guid: 01d5da14e40b247a9b8a42f6ac7230fa, type: 3}
-    bonusSprite: {fileID: 0}
-  - itemType: 10
-    sprite: {fileID: -1432975368721100300, guid: 793c60eb229484005adbc7df90e529ec, type: 3}
-    bonusSprite: {fileID: 0}
+    bonusSprite: {fileID: -1432975368721100300, guid: 793c60eb229484005adbc7df90e529ec, type: 3}
