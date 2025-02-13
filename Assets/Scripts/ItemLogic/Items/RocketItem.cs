@@ -23,7 +23,7 @@ public class RocketItem : Item
 
     public override void ExecuteBonusEffect()
     {
-        // TODO: Implement rocket explosion animations
+        RocketAnimation.Instance.AnimateRocketExplosion(this);
         base.ExecuteBonusEffect();
     }
 }

@@ -386,6 +386,7 @@ GameObject:
   - component: {fileID: 1512503064}
   - component: {fileID: 1512503065}
   - component: {fileID: 1512503066}
+  - component: {fileID: 1512503067}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -519,6 +520,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4a2440e5a404bcfa32ffa6fcb223a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1512503067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512503059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a79145cc0e13439a8238a7c48d2e527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocketPartPrefab: {fileID: 5607121573617766767, guid: 0f366cc0a62984b309c664114a9e4203, type: 3}
+  rocketPartTravelDistance: 10
+  rocketPartDuration: 0.5
+  smokeParticlePrefab: {fileID: 7553041005720567557, guid: 7790d7b9a361240ae9dd765dac9ab041, type: 3}
+  starParticlePrefab: {fileID: 3439004282766877969, guid: 9fe6799fb00f944bdaf473881afd8911, type: 3}
+  smokeSpawnInterval: 0.1
+  horizontalPartLeftSprite: {fileID: 8611318781296695245, guid: 432de0c438f6b4851874432fe111ecd1, type: 3}
+  horizontalPartRightSprite: {fileID: -4731576832940087401, guid: e723df777977f4588b5f3092d24c3d25, type: 3}
+  verticalPartUpSprite: {fileID: 51141016974189086, guid: c2fe1a531006643fab1c0668c8bc7e1c, type: 3}
+  verticalPartDownSprite: {fileID: -4697989437084310921, guid: 8d769cc62d3484376bba5d25e82cf5b6, type: 3}
 --- !u!1 &1620049126
 GameObject:
   m_ObjectHideFlags: 0

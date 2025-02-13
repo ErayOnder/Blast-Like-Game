@@ -23,6 +23,10 @@ public class CascadeManager : Singleton<CascadeManager>
         if (gridObject != null)
         {
             gameGrid = gridObject.GetComponent<GameGrid>();
+            if (gameGrid == null)
+            {
+                Debug.LogError("GameGrid component not found on the GameGrid object!");
+            }
         }
         else
         {

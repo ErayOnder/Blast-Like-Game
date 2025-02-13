@@ -66,7 +66,7 @@ public class ParticleManager : Singleton<ParticleManager>
         {
             ParticleSystem particle = pool.Get();
             // Adjust position if necessary (here we set a fixed z to ensure proper layering).
-            Vector3 spawnPosition = new Vector3(item.transform.position.x, item.transform.position.y, -10);
+            Vector3 spawnPosition = new(item.transform.position.x, item.transform.position.y, -10);
             particle.transform.position = spawnPosition;
             particle.Play();
             StartCoroutine(ReturnParticleAfterPlay(particle, pool));
