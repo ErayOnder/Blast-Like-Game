@@ -29,6 +29,7 @@ public class VaseItem : Item, IDestructibleObstacle
 
         if (health <= 0)
         {
+            LevelProgress.Instance.ProcessObstacleDestroyed(itemType);
             base.TryExecute(source);
         }
         

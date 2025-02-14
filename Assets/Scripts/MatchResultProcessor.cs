@@ -11,7 +11,6 @@ public class MatchResultProcessor : Singleton<MatchResultProcessor>
     {
         if (!IsValidStartCell(startCell))
         {
-            Debug.Log("Invalid starting cell for a match.");
             return;
         }
 
@@ -19,7 +18,6 @@ public class MatchResultProcessor : Singleton<MatchResultProcessor>
 
         if (matchedCells.Count < minMatchCount)
         {
-            Debug.Log("Matched group does not meet the minimum requirement.");
             return;
         }
 
@@ -29,6 +27,7 @@ public class MatchResultProcessor : Singleton<MatchResultProcessor>
         BlastAdjacentObstacles(matchedCells);
         TryCreateBonusRocket(containsBonus, startCell);
 
+        LevelProgress.Instance.ProcessMove();
         GameEvents.BoardUpdated();
     }
 
@@ -71,7 +70,7 @@ public class MatchResultProcessor : Singleton<MatchResultProcessor>
             new(0, 1)
         };
 
-        HashSet<Cell> processedNeighbors = new HashSet<Cell>();
+        HashSet<Cell> processedNeighbors = new();
 
         foreach (Cell cell in matchedCells)
         {

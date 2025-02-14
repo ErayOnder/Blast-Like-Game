@@ -4,12 +4,12 @@ public class ItemManager : Singleton<ItemManager>
 {
     [SerializeField] private GameGrid gameGrid;
 
-    // Overloaded method accepting LevelInfo as a parameter.
-    public void InitializeItems(LevelInfo levelInfo)
+    // Updated method accepting LevelData as a parameter.
+    public void InitializeItems(LevelData levelData)
     {
-        if (levelInfo == null)
+        if (levelData == null)
         {
-            Debug.LogError("ItemManager: Received null level info.");
+            Debug.LogError("ItemManager: Received null LevelData.");
             return;
         }
 
@@ -19,7 +19,6 @@ public class ItemManager : Singleton<ItemManager>
             return;
         }
 
-        LevelData levelData = new(levelInfo);
         int width = gameGrid.Width;
         int height = gameGrid.Height;
 

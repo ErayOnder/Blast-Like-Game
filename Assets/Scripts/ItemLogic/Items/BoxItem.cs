@@ -18,8 +18,8 @@ public class BoxItem : Item, IDestructibleObstacle
         health--;
         if (health <= 0)
         {
+            LevelProgress.Instance.ProcessObstacleDestroyed(itemType);
             base.TryExecute(source);
         }
     }
-
 }

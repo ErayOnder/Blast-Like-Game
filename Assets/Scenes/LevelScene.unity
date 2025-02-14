@@ -832,6 +832,7 @@ GameObject:
   - component: {fileID: 1512503064}
   - component: {fileID: 1512503065}
   - component: {fileID: 1512503066}
+  - component: {fileID: 1512503067}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -970,6 +971,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4a2440e5a404bcfa32ffa6fcb223a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1512503067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512503059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8b0f4f251de944d29fa9952c5c40916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnLevelWon:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLevelFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  movesText: {fileID: 1998016528}
+  goalPrefab: {fileID: 3367957571561163900, guid: d70b9f91c90304d4da777f3dc17db618, type: 3}
+  goalsParent: {fileID: 337562969}
 --- !u!224 &1555751698 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 803451278582318652, guid: 809553506e22f422f8f819cd0678b576, type: 3}

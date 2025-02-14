@@ -8,6 +8,9 @@ public class RocketManager : Singleton<RocketManager>
     {
         if (rocket == null)
             return;
+        
+        // Deduct a move when a rocket is tapped.
+        LevelProgress.Instance.ProcessMove();
 
         // Look for adjacent (cardinal) rockets to form a combo.
         List<RocketItem> comboGroup = FindComboGroup(rocket);
@@ -231,13 +234,14 @@ public class RocketManager : Singleton<RocketManager>
 
             Item targetItem = cell.Item;
 
-            // Stop propagation if the item does not blast with explosion.
             if (!targetItem.blastsWithExplosion)
                 break;
 
-            // If the item is a rocket, check its orientation.
-            RocketItem targetRocket = targetItem as RocketItem;
-            if (targetRocket != null)
+            if (targetItem is IDestructibleObstacle)
+            {
+                targetItem.TryExecute(DamageSource.Rocket);
+            }
+            else if (targetItem is RocketItem targetRocket)
             {
                 if (targetRocket.RocketType != sourceRocketType)
                 {

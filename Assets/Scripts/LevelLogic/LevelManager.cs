@@ -6,6 +6,7 @@ public class LevelManager : Singleton<LevelManager>
     
     // Property to hold the current level info so other managers can access it.
     public LevelInfo CurrentLevelInfo { get; private set; }
+    public LevelData CurrentLevelData { get; private set; }
 
     protected override void Awake()
     {
@@ -16,10 +17,12 @@ public class LevelManager : Singleton<LevelManager>
         if (levelInfo != null)
         {
             CurrentLevelInfo = levelInfo;
+            CurrentLevelData = new LevelData(CurrentLevelInfo);
             
             gameGrid.BuildGrid(CurrentLevelInfo);
-            
-            ItemManager.Instance.InitializeItems(CurrentLevelInfo);
+                        
+            LevelProgress.Instance.Initialize(CurrentLevelData);
+            ItemManager.Instance.InitializeItems(CurrentLevelData);
             CascadeManager.Instance.UpdateBonusGroups();
         }
         else

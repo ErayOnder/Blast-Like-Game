@@ -48,7 +48,6 @@ public class Cell : MonoBehaviour
         if (item == null)
             return;
 
-        // If the tapped item is a rocket, delegate to Rocket logic.
         RocketItem rocket = item as RocketItem;
         if (rocket != null)
         {
@@ -56,7 +55,6 @@ public class Cell : MonoBehaviour
             return;
         }
 
-        // Otherwise, if it's a cube, delegate the match processing.
         CubeItem cube = item as CubeItem;
         if (cube != null)
         {
