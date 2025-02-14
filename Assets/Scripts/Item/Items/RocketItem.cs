@@ -20,5 +20,5 @@ public class RocketItem : Item
         }
         base.InitializeFromProperties(config, selectedSprite);
     }
-
+    
 }

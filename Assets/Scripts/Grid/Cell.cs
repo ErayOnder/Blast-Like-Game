@@ -58,7 +58,7 @@ public class Cell : MonoBehaviour
         CubeItem cube = item as CubeItem;
         if (cube != null)
         {
-            MatchResultProcessor.Instance.ProcessMatch(this);
+            MatchManager.Instance.ProcessMatch(this);
         }
     }
 

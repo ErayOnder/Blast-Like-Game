@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MatchResultProcessor : Singleton<MatchResultProcessor>
+public class MatchManager : Singleton<MatchManager>
 {
     public int minMatchCount = 2;
     public int bonusThreshold = 4;
