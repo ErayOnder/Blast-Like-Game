@@ -37,6 +37,10 @@ public class RocketAnimation : MonoBehaviour
         originalSprite.enabled = false;
 
         Sequence seq = DOTween.Sequence();
+        
+        // Kill any existing tweens on these objects
+        DOTween.Kill(leftPart.transform);
+        DOTween.Kill(rightPart.transform);
 
         seq.Join(leftPart.transform.DOMove(transform.position + Vector3.left * splitDistance, animationSpeed * 0.3f));
         seq.Join(rightPart.transform.DOMove(transform.position + Vector3.right * splitDistance, animationSpeed * 0.3f));
@@ -46,8 +50,10 @@ public class RocketAnimation : MonoBehaviour
 
         seq.OnComplete(() =>
         {
-            Destroy(leftPart);
-            Destroy(rightPart);
+            if (leftPart != null)
+                Destroy(leftPart);
+            if (rightPart != null)
+                Destroy(rightPart);
             isAnimating = false;
             onComplete?.Invoke();
         });

@@ -89,4 +89,64 @@ public class RocketItem : Item
             });
         }
     }
+
+    public void TryExecuteCombo(DamageSource source, List<Item> itemsToDestroy, bool waitForOthers = false)
+    {
+        if (rocketAnimation == null)
+        {
+            base.TryExecute(source);
+            return;
+        }
+        
+        Cell currentCell = this.Cell;
+        if (currentCell == null || currentCell.GameGrid == null)
+        {
+            base.TryExecute(source);
+            return;
+        }
+        
+        GameGrid grid = currentCell.GameGrid;
+        if (rocketType == RocketType.Horizontal)
+        {
+            int row = currentCell.Y;
+            Cell leftTarget = grid.Grid[0, row];
+            Cell rightTarget = grid.Grid[grid.Width - 1, row];
+            
+            rocketAnimation.PlayHorizontalExplosionAnimation(leftTarget, rightTarget, () =>
+            {
+                if (!waitForOthers)
+                {
+                    // Destroy collected items after animation completes
+                    foreach (var item in itemsToDestroy)
+                    {
+                        if (item != null && item.gameObject != null)
+                            item.TryExecute(source);
+                    }
+                    base.TryExecute(source);
+                    GameEvents.BoardUpdated();
+                }
+            });
+        }
+        else
+        {
+            int col = currentCell.X;
+            Cell upTarget = grid.Grid[col, grid.Height - 1];
+            Cell downTarget = grid.Grid[col, 0];
+            
+            rocketAnimation.PlayVerticalExplosionAnimation(upTarget, downTarget, () =>
+            {
+                if (!waitForOthers)
+                {
+                    // Destroy collected items after animation completes
+                    foreach (var item in itemsToDestroy)
+                    {
+                        if (item != null && item.gameObject != null)
+                            item.TryExecute(source);
+                    }
+                    base.TryExecute(source);
+                    GameEvents.BoardUpdated();
+                }
+            });
+        }
+    }
 }

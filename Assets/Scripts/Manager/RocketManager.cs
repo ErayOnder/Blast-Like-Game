@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class RocketManager : Singleton<RocketManager>
 {
@@ -87,89 +88,66 @@ public class RocketManager : Singleton<RocketManager>
         if (tappedRocket == null || tappedRocket.Cell == null)
             return;
 
-        // Store center cell and its coordinates before removal.
+        // Store center cell and its coordinates
         Cell centerCell = tappedRocket.Cell;
-        int centerX = centerCell.X;
-        int centerY = centerCell.Y;
         GameGrid grid = centerCell.GameGrid;
-
-        // First trigger all rocket executions (which will handle their own cleanup)
+        
+        // Collect all items that will be destroyed by the combo
+        Dictionary<RocketItem, List<Item>> rocketTargets = new Dictionary<RocketItem, List<Item>>();
+        
+        // For each rocket in the combo group
         foreach (RocketItem rocket in comboGroup)
         {
-            rocket.TryExecute(DamageSource.Rocket);
-        }
-
-        // First, destroy all items inside the 3x3 block centered at the tapped cell.
-        for (int x = centerX - 1; x <= centerX + 1; x++)
-        {
-            for (int y = centerY - 1; y <= centerY + 1; y++)
+            List<Item> itemsToDestroy = new List<Item>();
+            
+            // Add horizontal items from the 3x3 grid centered on the tapped rocket
+            for (int y = centerCell.Y - 1; y <= centerCell.Y + 1; y++)
             {
-                if (x < 0 || x >= grid.Width || y < 0 || y >= grid.Height)
-                    continue;
-                Cell cell = grid.Grid[x, y];
-                if (cell == null || cell.Item == null)
-                    continue;
-                Item targetItem = cell.Item;
-                if (!targetItem.blastsWithExplosion)
-                    continue;
-                RocketItem targetRocket = targetItem as RocketItem;
-                if (targetRocket != null)
+                if (y >= 0 && y < grid.Height)
                 {
-                    // If orientations differ, trigger its explosion; otherwise simply destroy it.
-                    if (targetRocket.RocketType != tappedRocket.RocketType)
-                    {
-                        ExplodeRocket(targetRocket);
-                    }
-                    else
-                    {
-                        targetRocket.TryExecute(DamageSource.Rocket);
-                    }
-                }
-                else
-                {
-                    targetItem.TryExecute(DamageSource.Rocket);
+                    CollectItemsInDirection(grid.Grid[0, y], 1, 0, itemsToDestroy);
                 }
             }
+            
+            // Add vertical items from the 3x3 grid centered on the tapped rocket
+            for (int x = centerCell.X - 1; x <= centerCell.X + 1; x++)
+            {
+                if (x >= 0 && x < grid.Width)
+                {
+                    CollectItemsInDirection(grid.Grid[x, 0], 0, 1, itemsToDestroy);
+                }
+            }
+            
+            rocketTargets[rocket] = itemsToDestroy;
         }
 
-        // Next, propagate the explosion outward from the edges of the 3x3 block.
-        // For horizontal propagation, iterate over the three rows of the combo zone.
-        for (int r = -1; r <= 1; r++)
+        // Trigger all rocket animations simultaneously
+        foreach (RocketItem rocket in comboGroup)
         {
-            int row = centerY + r;
-            if (row < 0 || row >= grid.Height)
-                continue;
-
-            // Leftward: start from the left edge of the combo area.
-            if (centerX - 1 >= 0)
-            {
-                ProcessExplosionDirection(grid.Grid[centerX - 1, row], -1, 0, tappedRocket.RocketType);
-            }
-            // Rightward: start from the right edge.
-            if (centerX + 1 < grid.Width)
-            {
-                ProcessExplosionDirection(grid.Grid[centerX + 1, row], 1, 0, tappedRocket.RocketType);
-            }
+            rocket.TryExecuteCombo(DamageSource.Rocket, rocketTargets[rocket], true);
         }
 
-        // For vertical propagation, iterate over the three columns of the combo zone.
-        for (int c = -1; c <= 1; c++)
+        StartCoroutine(WaitForComboAnimations(comboGroup, rocketTargets));
+    }
+
+    private IEnumerator WaitForComboAnimations(List<RocketItem> rockets, Dictionary<RocketItem, List<Item>> rocketTargets)
+    {
+        // Wait for animation duration plus a small buffer
+        yield return new WaitForSeconds(0.8f);
+
+        // Destroy all items and rockets
+        foreach (var kvp in rocketTargets)
         {
-            int col = centerX + c;
-            if (col < 0 || col >= grid.Width)
-                continue;
-
-            // Upward: start from the top edge.
-            if (centerY + 1 < grid.Height)
+            foreach (var item in kvp.Value)
             {
-                ProcessExplosionDirection(grid.Grid[col, centerY + 1], 0, 1, tappedRocket.RocketType);
+                if (item != null && item.gameObject != null)
+                    item.TryExecute(DamageSource.Rocket);
             }
-            // Downward: start from the bottom edge.
-            if (centerY - 1 >= 0)
-            {
-                ProcessExplosionDirection(grid.Grid[col, centerY - 1], 0, -1, tappedRocket.RocketType);
-            }
+            if (kvp.Key != null && kvp.Key.gameObject != null)
+                kvp.Key.TryExecute(DamageSource.Rocket);
         }
+
+        GameEvents.BoardUpdated();
     }
 
     // Helper: find all rockets (using cardinal neighbors) connected to the tapped rocket.
@@ -268,7 +246,19 @@ public class RocketManager : Singleton<RocketManager>
             {
                 if (targetRocket.RocketType != sourceRocketType)
                 {
-                    ExplodeRocket(targetRocket);
+                    // Collect items for this rocket before triggering its explosion
+                    List<Item> itemsToDestroy = new List<Item>();
+                    if (targetRocket.RocketType == RocketType.Horizontal)
+                    {
+                        CollectItemsInDirection(cell, -1, 0, itemsToDestroy);
+                        CollectItemsInDirection(cell, 1, 0, itemsToDestroy);
+                    }
+                    else // RocketType.Vertical
+                    {
+                        CollectItemsInDirection(cell, 0, 1, itemsToDestroy);
+                        CollectItemsInDirection(cell, 0, -1, itemsToDestroy);
+                    }
+                    targetRocket.TryExecuteWithItems(DamageSource.Rocket, itemsToDestroy);
                 }
                 else
                 {
