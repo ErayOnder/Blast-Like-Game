@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Manages matching operations on the game board.
 public class MatchManager : Singleton<MatchManager>
 {
     public int minMatchCount = 2;
     public int bonusThreshold = 4;
 
+    // Processes a match starting from a given cell.
     public void ProcessMatch(Cell startCell)
     {
         if (!IsValidStartCell(startCell))
@@ -59,9 +61,9 @@ public class MatchManager : Singleton<MatchManager>
         }
     }
 
+    // Blasts obstacles adjacent to the matched cells.
     private void BlastAdjacentObstacles(List<Cell> matchedCells)
     {
-        // Define the four cardinal directions: Left, Right, Down, Up.
         Vector2Int[] directions = new Vector2Int[]
         {
             new(-1, 0),
@@ -78,7 +80,6 @@ public class MatchManager : Singleton<MatchManager>
             {
                 int neighborX = cell.X + dir.x;
                 int neighborY = cell.Y + dir.y;
-
                 if (IsWithinGrid(cell.GameGrid, neighborX, neighborY))
                 {
                     Cell neighborCell = cell.GameGrid.Grid[neighborX, neighborY];
@@ -100,6 +101,7 @@ public class MatchManager : Singleton<MatchManager>
         return x >= 0 && x < grid.Width && y >= 0 && y < grid.Height;
     }
 
+    // Creates a bonus rocket if a bonus cell is present.
     private void TryCreateBonusRocket(bool containsBonus, Cell startCell)
     {
         if (containsBonus)

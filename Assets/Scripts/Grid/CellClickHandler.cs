@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+// Role: Handles cell click events.
 public class CellClickHandler : MonoBehaviour, IPointerClickHandler
 {
     private Cell cell;
@@ -21,5 +22,4 @@ public class CellClickHandler : MonoBehaviour, IPointerClickHandler
             cell.CellTapped();
         }
     }
-
 }

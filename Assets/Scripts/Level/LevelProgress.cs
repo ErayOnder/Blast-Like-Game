@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using TMPro;
 using System.Threading.Tasks;
 
+// LevelProgress: Manages remaining moves and goal tracking; triggers win/fail events.
 public class LevelProgress : Singleton<LevelProgress>
 {
     public int MovesLeft { get; private set; }
@@ -20,6 +21,7 @@ public class LevelProgress : Singleton<LevelProgress>
 
     private bool levelEnded = false;
 
+    // Init: sets up moves and goal counts from level data.
     public void Initialize(LevelData levelData)
     {
         if (levelData == null)
@@ -77,16 +79,17 @@ public class LevelProgress : Singleton<LevelProgress>
         }
     }
 
+    // Waits a frame then verifies failure condition.
     private IEnumerator DelayedCheckFailure()
     {
         yield return null;
-
         if (!levelEnded)
         {
             CheckFailure();
         }
     }
 
+    // Async process: decrements move count and checks for failure after delay.
     public async Task ProcessMoveAsync()
     {
         if (levelEnded)
@@ -134,6 +137,7 @@ public class LevelProgress : Singleton<LevelProgress>
         }
     }
 
+    // Updates goal count for an obstacle and checks win condition.
     public void ProcessObstacleDestroyed(ItemType itemType)
     {
         if (Goals.ContainsKey(itemType))

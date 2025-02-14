@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Role: Manages level button UI behavior and interactions.
 public class LevelButton : MonoBehaviour
 {
     [SerializeField] private Button levelButton;
@@ -16,6 +17,7 @@ public class LevelButton : MonoBehaviour
         levelButton.onClick.AddListener(OnButtonPressed);
     }
 
+    /* Initializes button text based on saved level */
     private void Start()
     {
         int level = PlayerPrefs.GetInt("Level", 1);
@@ -38,6 +40,7 @@ public class LevelButton : MonoBehaviour
         }
     }
 
+    /* Processes button click: updates UI or triggers level load/reset */
     private void OnButtonPressed()
     {
         int level = PlayerPrefs.GetInt("Level", 1);

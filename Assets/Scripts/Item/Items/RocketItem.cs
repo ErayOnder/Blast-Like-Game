@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+// RocketItem: Implements rocket behavior and explosion chain reactions.
 public class RocketItem : Item
 {
     private RocketType rocketType;
@@ -13,11 +14,9 @@ public class RocketItem : Item
         Sprite selectedSprite = null;
         if (spriteConfig != null)
         {
-            // Use the normal sprite for Horizontal rockets
-            // Use the bonus sprite (assigned as vertical) for Vertical rockets.
-            selectedSprite = rocketType == RocketType.Horizontal ?
-                spriteConfig.GetSpriteForItemType(config.ItemType) :
-                spriteConfig.GetBonusSpriteForItemType(config.ItemType);
+            selectedSprite = rocketType == RocketType.Horizontal 
+                ? spriteConfig.GetSpriteForItemType(config.ItemType) 
+                : spriteConfig.GetBonusSpriteForItemType(config.ItemType);
         }
         base.InitializeFromProperties(config, selectedSprite);
     }
@@ -25,17 +24,13 @@ public class RocketItem : Item
     public void ApplyExplosionSpriteRendererProperties(SpriteRenderer sr, Sprite sprite)
     {
         sr.sprite = sprite;
-        // Reset local position in case it's not on the same object.
         sr.transform.localPosition = Vector3.zero;
-        // Use the natural size of the sprite for explosion effects.
         sr.transform.localScale = Vector2.one;
-        // Place the explosion on its dedicated sorting layer.
         sr.sortingLayerID = SortingLayer.NameToID("Explosion");
-        // A fixed sorting order (adjust this value as needed).
         sr.sortingOrder = 100;
     }
     
-    // Override TryExecute to delay destruction until after the explosion animation.
+    // Executes rocket explosion with chain reactions.
     public void TryExecuteWithItems(DamageSource source, List<Item> itemsToDestroy)
     {
         if (rocketAnimation == null)
@@ -60,11 +55,15 @@ public class RocketItem : Item
             
             rocketAnimation.PlayHorizontalExplosionAnimation(leftTarget, rightTarget, () =>
             {
-                // Destroy collected items after animation completes
                 foreach (var item in itemsToDestroy)
                 {
                     if (item != null && item.gameObject != null)
-                        item.TryExecute(source);
+                    {
+                        if (item is RocketItem r && r.RocketType != this.rocketType)
+                            RocketManager.Instance.ExplodeRocket(r);
+                        else
+                            item.TryExecute(source);
+                    }
                 }
                 base.TryExecute(source);
                 GameEvents.BoardUpdated();
@@ -78,11 +77,15 @@ public class RocketItem : Item
             
             rocketAnimation.PlayVerticalExplosionAnimation(upTarget, downTarget, () =>
             {
-                // Destroy collected items after animation completes
                 foreach (var item in itemsToDestroy)
                 {
                     if (item != null && item.gameObject != null)
-                        item.TryExecute(source);
+                    {
+                        if (item is RocketItem r && r.RocketType != this.rocketType)
+                            RocketManager.Instance.ExplodeRocket(r);
+                        else
+                            item.TryExecute(source);
+                    }
                 }
                 base.TryExecute(source);
                 GameEvents.BoardUpdated();

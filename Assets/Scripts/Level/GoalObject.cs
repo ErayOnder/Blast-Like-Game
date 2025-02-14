@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Handles UI for level goals.
 public class GoalObject : MonoBehaviour
 {
     [SerializeField] private Image goalImage;
@@ -14,10 +15,10 @@ public class GoalObject : MonoBehaviour
     
     public LevelGoal LevelGoal => levelGoal;
     
+    // Sets up the goal UI with the provided data.
     public void Prepare(LevelGoal goal)
     {
         levelGoal = goal;
-    
         if (spriteConfig != null)
         {
             var goalSprite = spriteConfig.GetSpriteForItemType(levelGoal.ItemType);
@@ -81,5 +82,4 @@ public class GoalObject : MonoBehaviour
             completedMarkImage.gameObject.SetActive(true);
         }
     }
-    
 }

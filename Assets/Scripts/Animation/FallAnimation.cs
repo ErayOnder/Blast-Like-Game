@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
+// Class role: Animates an item's fall to a target cell.
 public class FallAnimation : MonoBehaviour
 {
     public Item item;
@@ -42,6 +43,7 @@ public class FallAnimation : MonoBehaviour
         targetPosition = targetCell.transform.position;
     }
 
+    // Handles the fall animation tween.
     private void AnimateFall()
     {
         if (item == null || targetCell == null)

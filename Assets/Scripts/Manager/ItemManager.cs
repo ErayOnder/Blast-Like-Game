@@ -1,10 +1,10 @@
 using UnityEngine;
 
+// Role: Manages item creation and initialization.
 public class ItemManager : Singleton<ItemManager>
 {
     [SerializeField] private GameGrid gameGrid;
 
-    // Updated method accepting LevelData as a parameter.
     public void InitializeItems(LevelData levelData)
     {
         if (levelData == null)

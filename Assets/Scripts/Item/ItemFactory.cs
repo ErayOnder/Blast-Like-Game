@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// ItemFactory: Creates items based on type.
 public class ItemFactory : Singleton<ItemFactory>
 {
     public ItemBase ItemBasePrefab;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// Holds basic configuration for a level.
 [Serializable]
 public class LevelInfo
 {
@@ -13,12 +14,14 @@ public class LevelInfo
     public string[] grid;
 }
 
+/// Represents a goal: the required count for a given item type.
 public class LevelGoal
 {
     public ItemType ItemType { get; set; }
     public int Count { get; set; }
 }
 
+/// Processes LevelInfo to build grid data and calculate level goals.
 public class LevelData
 {
     public ItemType[,] GridData { get; protected set; }
@@ -33,6 +36,7 @@ public class LevelData
         ItemType.YellowCube
     };
 
+    // Processes level info: verifies grid size, initializes grid cells, and counts obstacles.
     public LevelData(LevelInfo levelInfo)
     {
         if (levelInfo.grid.Length != levelInfo.grid_width * levelInfo.grid_height)
@@ -94,5 +98,4 @@ public class LevelData
     {
         return CubeTypes[UnityEngine.Random.Range(0, CubeTypes.Length)];
     }
-
 }

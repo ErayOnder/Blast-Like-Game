@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-/*
+
 public class CubePool : Singleton<CubePool>
 {
-    [SerializeField] private CubeItem cubePrefab; // assign the cube prefab that already has a CubeItem attached
+    [SerializeField] private CubeItem cubePrefab;
     private Queue<CubeItem> pool = new Queue<CubeItem>();
 
     public CubeItem GetCube(Transform parent)
@@ -29,4 +29,3 @@ public class CubePool : Singleton<CubePool>
         pool.Enqueue(cube);
     }
 }
-*/

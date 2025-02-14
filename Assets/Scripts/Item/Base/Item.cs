@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Item: Base class for game items. Handles initialization, sprite setup, falling, and destruction.
 public class Item : MonoBehaviour
 {
     public ItemType itemType;
@@ -22,13 +23,10 @@ public class Item : MonoBehaviour
         set
         {
             if (cell == value) return;
-
             var oldCell = cell;
             cell = value;
-
             if (oldCell != null && oldCell.Item == this)
                 oldCell.Item = null;
-    
             if (value != null)
             {
                 value.Item = this;
@@ -37,6 +35,7 @@ public class Item : MonoBehaviour
         }
     }
 
+    // Init: Sets up this item from its config; adds animations if necessary.
     public void InitializeFromProperties(ItemConfig config, Sprite sprite)
     {
         if (spriteRenderer == null)
@@ -48,9 +47,7 @@ public class Item : MonoBehaviour
                 return;
             }
         }
-
         ApplySpriteRendererProperties(spriteRenderer, sprite);
-
         itemType = config.ItemType;
         clickable = config.Clickable;
         fallable = config.Fallable;
@@ -93,7 +90,6 @@ public class Item : MonoBehaviour
             Sprite bonusSprite = spriteConfig.GetBonusSpriteForItemType(itemType);
             if (bonusSprite != null)
             {
-                // Re-apply sprite settings using the bonus sprite.
                 ApplySpriteRendererProperties(spriteRenderer, bonusSprite);
             }
             else
@@ -106,7 +102,6 @@ public class Item : MonoBehaviour
             Debug.LogWarning("ItemSpriteConfig not found.");
         }
     }
-
     
     public void Fall()
     {
@@ -117,19 +112,16 @@ public class Item : MonoBehaviour
     public virtual void TryExecute(DamageSource source)
     {
         ParticleManager.Instance.PlayParticle(this);
-
         if (Cell != null)
         {
             Cell.Item = null;
         }
-        
         Destroy(gameObject);
     }
-
+    
     public void ApplySpriteRendererProperties(SpriteRenderer sr, Sprite sprite)
     {
         sr.sprite = sprite;
-        // Only reset the local position if the SpriteRenderer is not on the same GameObject as this Item.
         if (sr.gameObject != gameObject)
         {
             sr.transform.localPosition = Vector3.zero;
@@ -138,5 +130,4 @@ public class Item : MonoBehaviour
         sr.sortingLayerID = SortingLayer.NameToID("Cell");
         sr.sortingOrder = BaseSortingOrder + childSpriteOrder++;
     }
-
 }

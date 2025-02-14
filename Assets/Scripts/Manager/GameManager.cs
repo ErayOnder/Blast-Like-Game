@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// Role: Manages game state, including level loading and resetting.
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField]
@@ -9,9 +10,6 @@ public class GameManager : Singleton<GameManager>
 
     protected override void Awake()
     {
-        PlayerPrefs.SetInt("Level", 1);
-        PlayerPrefs.Save();
-
         base.Awake();
         DontDestroyOnLoad(gameObject);
     }

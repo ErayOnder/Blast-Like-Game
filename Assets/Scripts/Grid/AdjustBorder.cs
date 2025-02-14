@@ -1,17 +1,15 @@
 using UnityEngine;
 
+// Class role: Adjusts the grid border sprite based on the current grid dimensions.
 public class AdjustBorder : MonoBehaviour
 {
-    [SerializeField]
-    private GameGrid gameGrid;
-
+    [SerializeField] private GameGrid gameGrid;
     private const float WIDTH_PADDING = 0.35f;
     private const float HEIGHT_PADDING = 0.45f;
 
     void Awake()
     {
         GameEvents.OnBoardUpdated += UpdateBorder;
-        
         if (gameGrid != null && gameGrid.Grid != null)
         {
             UpdateBorder();
@@ -23,6 +21,7 @@ public class AdjustBorder : MonoBehaviour
         GameEvents.OnBoardUpdated -= UpdateBorder;
     }
 
+    // Adjusts the sprite size using grid width, height, and padding.
     private void UpdateBorder()
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();

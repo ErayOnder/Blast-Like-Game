@@ -22,7 +22,6 @@ public class CubeItem : Item
             Sprite normalSprite = spriteConfig.GetSpriteForItemType(itemType);
             if (normalSprite != null)
             {
-                // Reapply the default sprite settings.
                 ApplySpriteRendererProperties(spriteRenderer, normalSprite);
             }
             else

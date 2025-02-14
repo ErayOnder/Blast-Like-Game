@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+// Role: Creates and positions the game grid.
 public class GameGrid : MonoBehaviour
 {
     [SerializeField]
@@ -13,6 +14,7 @@ public class GameGrid : MonoBehaviour
     public int Width { get; private set; }
     public int Height { get; private set; }
 
+    // Builds and initializes the grid using level information.
     public void BuildGrid(LevelInfo levelinfo)
     {
         Width = levelinfo.grid_width;
@@ -41,6 +43,7 @@ public class GameGrid : MonoBehaviour
         GameEvents.BoardUpdated();
     }
 
+    // Repositions the grid container based on current dimensions.
     private void ResizeBoard()
     {
         Transform currTrans = this.transform;

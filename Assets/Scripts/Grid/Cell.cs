@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+// Represents a grid cell. Manages item assignment and interactions.
 public class Cell : MonoBehaviour
 {
-
     public TextMesh debugLabel;
     [HideInInspector] public int X;
     [HideInInspector] public int Y;
@@ -15,20 +15,14 @@ public class Cell : MonoBehaviour
 
     public Item Item
     {
-        get
-        {
-            return item;
-        }
+        get { return item; }
         set
         {
             if (item == value) return;
-
             var oldItem = item;
             item = value;
-
             if (oldItem != null && Equals(oldItem.Cell, this))
                 oldItem.Cell = null;
-            
             if (value != null)
                 value.Cell = this;
         }
@@ -69,6 +63,7 @@ public class Cell : MonoBehaviour
         return null;
     }
 
+    // Finds the lowest empty cell below for falling items.
     public Cell GetFallTarget()
     {
         Cell targetCell = this;
@@ -76,13 +71,9 @@ public class Cell : MonoBehaviour
         {
             Cell below = targetCell.GetCellBelow();
             if (below != null && below.Item == null)
-            {
                 targetCell = below;
-            }
             else
-            {
                 break;
-            }
         }
         return targetCell;
     }

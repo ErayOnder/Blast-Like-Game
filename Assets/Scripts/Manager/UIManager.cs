@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// Manages UI elements for level completion and failure.
 public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private TextMeshProUGUI levelNumberTextCompleted;

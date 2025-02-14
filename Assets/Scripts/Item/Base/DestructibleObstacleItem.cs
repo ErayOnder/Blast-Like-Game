@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Role: Manages damage logic for destructible obstacles.
 public abstract class DestructibleObstacleItem : Item, IDestructibleObstacle
 {
     // When TryExecute is called, we delegate to our ApplyDamage method.
@@ -8,8 +9,7 @@ public abstract class DestructibleObstacleItem : Item, IDestructibleObstacle
         ApplyDamage(source);
     }
 
-    // Default implementation: subtract 1 health if the damage source is acceptable.
-    // Then, if health reaches zero, perform the destruction.
+    // Applies damage, reduces health, and destroys the item when depleted.
     public virtual void ApplyDamage(DamageSource source)
     {
         if (!CanApplyDamage(source))
@@ -38,7 +38,7 @@ public abstract class DestructibleObstacleItem : Item, IDestructibleObstacle
         // Default: no extra action.
     }
     
-    // A helper method to consolidate common initialization logic.
+    // Initializes obstacle properties.
     protected void InitializeObstacle(ItemConfig config, ItemSpriteConfig spriteConfig)
     {
         Sprite sprite = spriteConfig != null ? spriteConfig.GetSpriteForItemType(config.ItemType) : null;

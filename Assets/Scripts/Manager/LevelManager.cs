@@ -1,10 +1,10 @@
 using UnityEngine;
 
+// Role: Manages level data and initialization.
 public class LevelManager : Singleton<LevelManager>
 {
     public GameGrid gameGrid;
     
-    // Property to hold the current level info so other managers can access it.
     public LevelInfo CurrentLevelInfo { get; private set; }
     public LevelData CurrentLevelData { get; private set; }
 
