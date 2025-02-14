@@ -9,8 +9,8 @@ public class GameManager : Singleton<GameManager>
 
     protected override void Awake()
     {
-        //PlayerPrefs.SetInt("Level", 1);
-        //PlayerPrefs.Save();
+        PlayerPrefs.SetInt("Level", 1);
+        PlayerPrefs.Save();
 
         base.Awake();
         DontDestroyOnLoad(gameObject);

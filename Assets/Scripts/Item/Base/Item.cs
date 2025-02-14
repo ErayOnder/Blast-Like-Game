@@ -9,6 +9,7 @@ public class Item : MonoBehaviour
     public int health;
 
     public FallAnimation fallAnimation;
+    public RocketAnimation rocketAnimation;
     
     private const int BaseSortingOrder = 10;
     private static int childSpriteOrder;
@@ -56,7 +57,6 @@ public class Item : MonoBehaviour
         blastsWithExplosion = config.BlastsWithExlosion;
         health = config.Health;
         
-        // Only set up fallAnimation if the item is fallable.
         if (fallable)
         {
             if (fallAnimation == null)
@@ -69,6 +69,19 @@ public class Item : MonoBehaviour
                 }
             }
             fallAnimation.item = this;
+        }
+        if (itemType == ItemType.Rocket)
+        {
+            if (rocketAnimation == null)
+            {
+                rocketAnimation = GetComponent<RocketAnimation>();
+                if (rocketAnimation == null)
+                {
+                    Debug.LogWarning("RocketAnimation component not found on " + gameObject.name + ". Adding one.");
+                    rocketAnimation = gameObject.AddComponent<RocketAnimation>();
+                }
+            }
+            rocketAnimation.item = this;
         }
     }
 
@@ -113,7 +126,7 @@ public class Item : MonoBehaviour
         Destroy(gameObject);
     }
 
-    protected void ApplySpriteRendererProperties(SpriteRenderer sr, Sprite sprite)
+    public void ApplySpriteRendererProperties(SpriteRenderer sr, Sprite sprite)
     {
         sr.sprite = sprite;
         // Only reset the local position if the SpriteRenderer is not on the same GameObject as this Item.

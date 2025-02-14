@@ -1000,7 +1000,7 @@ MonoBehaviour:
     poolSize: 10
     pool: {fileID: 0}
   - itemType: 5
-    particlePrefab: {fileID: 3439004282766877969, guid: 8e93496aaf77c42759134e39781c3dc7, type: 3}
+    particlePrefab: {fileID: 3439004282766877969, guid: 2ecd131637525468e8934c3310a49bf4, type: 3}
     poolSize: 10
     pool: {fileID: 0}
 --- !u!114 &1512503066

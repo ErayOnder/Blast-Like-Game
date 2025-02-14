@@ -30,28 +30,55 @@ public class RocketManager : Singleton<RocketManager>
     // Single explosion logic (unchanged)
     private void ExplodeRocketSingle(RocketItem rocket)
     {
-        if (rocket == null)
+        if (rocket == null || rocket.Cell == null)
             return;
 
         Cell originCell = rocket.Cell;
-        if (originCell != null)
-        {
-            originCell.Item = null;
-        }
+        List<Item> itemsToDestroy = new List<Item>();
 
-        // Propagate the explosion according to the rocket's orientation.
+        // Collect items to destroy instead of destroying them immediately
         if (rocket.RocketType == RocketType.Horizontal)
         {
-            ProcessExplosionDirection(originCell, -1, 0, rocket.RocketType);
-            ProcessExplosionDirection(originCell, 1, 0, rocket.RocketType);
+            CollectItemsInDirection(originCell, -1, 0, itemsToDestroy);
+            CollectItemsInDirection(originCell, 1, 0, itemsToDestroy);
         }
         else // RocketType.Vertical
         {
-            ProcessExplosionDirection(originCell, 0, 1, rocket.RocketType);
-            ProcessExplosionDirection(originCell, 0, -1, rocket.RocketType);
+            CollectItemsInDirection(originCell, 0, 1, itemsToDestroy);
+            CollectItemsInDirection(originCell, 0, -1, itemsToDestroy);
         }
 
-        rocket.TryExecute(DamageSource.Rocket);
+        // Start the rocket animation, destroy items only after it completes
+        rocket.TryExecuteWithItems(DamageSource.Rocket, itemsToDestroy);
+    }
+
+    private void CollectItemsInDirection(Cell startCell, int dx, int dy, List<Item> itemsToDestroy)
+    {
+        if (startCell == null || startCell.GameGrid == null)
+            return;
+
+        int x = startCell.X;
+        int y = startCell.Y;
+        GameGrid grid = startCell.GameGrid;
+
+        while (true)
+        {
+            x += dx;
+            y += dy;
+
+            if (x < 0 || x >= grid.Width || y < 0 || y >= grid.Height)
+                break;
+
+            Cell cell = grid.Grid[x, y];
+            if (cell == null || cell.Item == null)
+                continue;
+
+            Item targetItem = cell.Item;
+            if (!targetItem.blastsWithExplosion)
+                break;
+
+            itemsToDestroy.Add(targetItem);
+        }
     }
 
     // Combo explosion logic
@@ -66,13 +93,9 @@ public class RocketManager : Singleton<RocketManager>
         int centerY = centerCell.Y;
         GameGrid grid = centerCell.GameGrid;
 
-        // Remove all rockets in the combo (they are now part of the combo explosion).
+        // First trigger all rocket executions (which will handle their own cleanup)
         foreach (RocketItem rocket in comboGroup)
         {
-            if (rocket.Cell != null)
-            {
-                rocket.Cell.Item = null;
-            }
             rocket.TryExecute(DamageSource.Rocket);
         }
 

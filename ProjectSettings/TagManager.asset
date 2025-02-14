@@ -49,5 +49,8 @@ TagManager:
   - name: Cell
     uniqueID: 217725543
     locked: 0
+  - name: Rocket
+    uniqueID: 4174518007
+    locked: 0
   m_RenderingLayers:
   - Default
