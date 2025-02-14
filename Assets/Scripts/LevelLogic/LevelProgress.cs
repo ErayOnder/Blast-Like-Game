@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,6 +18,8 @@ public class LevelProgress : Singleton<LevelProgress>
     [SerializeField] private Transform goalsParent;
     private readonly List<GoalObject> goalObjects = new();
 
+    private bool levelEnded = false;
+
     public void Initialize(LevelData levelData)
     {
         if (levelData == null)
@@ -29,6 +32,7 @@ public class LevelProgress : Singleton<LevelProgress>
         UpdateMovesText();
 
         Goals = new Dictionary<ItemType, int>();
+        levelEnded = false;
 
         foreach (var goal in levelData.Goals)
         {
@@ -59,22 +63,65 @@ public class LevelProgress : Singleton<LevelProgress>
 
     public void ProcessMove()
     {
+        if (levelEnded)
+            return;
+
         MovesLeft--;
         UpdateMovesText();
-        CheckFailure();
+
+        CheckWin();
+
+        if (!levelEnded)
+        {
+            StartCoroutine(DelayedCheckFailure());
+        }
+    }
+
+    private IEnumerator DelayedCheckFailure()
+    {
+        yield return null;
+
+        if (!levelEnded)
+        {
+            CheckFailure();
+        }
     }
 
     public async Task ProcessMoveAsync()
     {
+        if (levelEnded)
+            return;
+
         MovesLeft--;
         UpdateMovesText();
 
-        if (MovesLeft <= 0 && Goals.Count > 0)
-        {
-            MovesLeft = 0;
-            UpdateMovesText();
+        CheckWin();
 
+        if (!levelEnded && MovesLeft <= 0 && Goals.Count > 0)
+        {
             await Task.Delay(System.TimeSpan.FromSeconds(1));
+            if (!levelEnded && Goals.Count > 0)
+            {
+                levelEnded = true;
+                OnLevelFailed?.Invoke();
+            }
+        }
+    }
+
+    private void CheckWin()
+    {
+        if (!levelEnded && Goals.Count == 0)
+        {
+            levelEnded = true;
+            OnLevelWon?.Invoke();
+        }
+    }
+
+    private void CheckFailure()
+    {
+        if (!levelEnded && MovesLeft <= 0 && Goals.Count > 0)
+        {
+            levelEnded = true;
             OnLevelFailed?.Invoke();
         }
     }
@@ -104,22 +151,6 @@ public class LevelProgress : Singleton<LevelProgress>
             }
 
             CheckWin();
-        }
-    }
-
-    private void CheckWin()
-    {
-        if (Goals.Count == 0)
-        {
-            OnLevelWon?.Invoke();
-        }
-    }
-
-    private void CheckFailure()
-    {
-        if (MovesLeft <= 0 && Goals.Count > 0)
-        {
-            OnLevelFailed?.Invoke();
         }
     }
 }

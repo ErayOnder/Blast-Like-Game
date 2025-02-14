@@ -7,6 +7,15 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private GameObject loadScreen;
 
+    protected override void Awake()
+    {
+        //PlayerPrefs.SetInt("Level", 1);
+        //PlayerPrefs.Save();
+
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void ResetGame()
     {
         PlayerPrefs.SetInt("Level", 1);
@@ -30,17 +39,16 @@ public class GameManager : Singleton<GameManager>
     {
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(levelScene);
 
-        if (loadScreen == null)
+        if (loadScreen != null)
         {
-            Debug.LogWarning("LoadScreen not assigned in GameManager.");
+            loadScreen.SetActive(true);
         }
-        loadScreen.SetActive(true);
 
         while (!asyncOperation.isDone)
         {
             yield return null;
         }
         yield return new WaitForSeconds(0.5f);
+        loadScreen.SetActive(false);
     }
-    
 }

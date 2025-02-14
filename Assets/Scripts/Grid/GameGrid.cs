@@ -43,10 +43,12 @@ public class GameGrid : MonoBehaviour
 
     private void ResizeBoard()
     {
-        var position = transform.position;
-        float offsetX = (9 - Height) * 0.5f;
-        float offsetY = (9 - Width) * 0.5f;
-        transform.position = new Vector3(offsetX, offsetY, position.z);
+        Transform currTrans = this.transform;
+
+        float newX = (9 - Width) * 0.5f;
+        float newY = (9 - Height) * 0.5f;
+
+        this.transform.position = new Vector3(newX, newY, currTrans.position.z);
     }
     
 }

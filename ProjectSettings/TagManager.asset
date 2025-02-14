@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - GameGrid
+  - LoadScreen
   layers:
   - Default
   - TransparentFX
