@@ -4,8 +4,17 @@ using UnityEngine;
 // Role: Finds connected matching cells on the grid.
 public static class MatchFinder
 {
-    // Returns cells connected to the start cell that share the same cube match type.
     public static List<Cell> FindMatches(Cell startCell)
+    {
+        return FindConnectedCells(startCell, (item) => item is CubeItem cube && cube.MatchType == (startCell.Item as CubeItem)?.MatchType);
+    }
+
+    public static List<Cell> FindConnectedRockets(Cell startCell)
+    {
+        return FindConnectedCells(startCell, (item) => item is RocketItem);
+    }
+
+    private static List<Cell> FindConnectedCells(Cell startCell, System.Func<Item, bool> matcher)
     {
         List<Cell> matchedCells = new();
         if (startCell == null || startCell.Item == null)
@@ -13,18 +22,19 @@ public static class MatchFinder
             Debug.Log("No item attached to the starting cell.");
             return matchedCells;
         }
-        CubeItem cubeItem = startCell.Item as CubeItem;
-        if (cubeItem == null)
+
+        if (!matcher(startCell.Item))
         {
-            Debug.Log("Item in starting cell is not matchable.");
+            Debug.Log("Starting cell item doesn't match the criteria.");
             return matchedCells;
         }
-        MatchType targetMatchType = cubeItem.MatchType;
+
         HashSet<Cell> visited = new();
         Queue<Cell> toVisit = new();
         toVisit.Enqueue(startCell);
         visited.Add(startCell);
         matchedCells.Add(startCell);
+
         while (toVisit.Count > 0)
         {
             Cell current = toVisit.Dequeue();
@@ -32,8 +42,7 @@ public static class MatchFinder
             {
                 if (neighbor != null && !visited.Contains(neighbor) && neighbor.Item != null)
                 {
-                    CubeItem neighborCube = neighbor.Item as CubeItem;
-                    if (neighborCube != null && neighborCube.MatchType == targetMatchType)
+                    if (matcher(neighbor.Item))
                     {
                         visited.Add(neighbor);
                         matchedCells.Add(neighbor);
