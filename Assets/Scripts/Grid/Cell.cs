@@ -45,7 +45,7 @@ public class Cell : MonoBehaviour
         RocketItem rocket = item as RocketItem;
         if (rocket != null)
         {
-            RocketManager.Instance.ExplodeRocket(rocket);
+            RocketManager.Instance.ExplodeRocket(rocket, true);
             return;
         }
 

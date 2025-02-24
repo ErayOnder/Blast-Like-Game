@@ -5,12 +5,15 @@ using System.Collections.Generic;
 public class RocketManager : Singleton<RocketManager>
 {
     // Explodes a rocket; triggers combo explosion if adjacent rockets are found.
-    public void ExplodeRocket(RocketItem rocket)
+    public void ExplodeRocket(RocketItem rocket, bool isInitialClick = false)
     {
         if (rocket == null)
             return;
 
-        LevelProgress.Instance.ProcessMove();
+        if (isInitialClick)
+        {
+            LevelProgress.Instance.ProcessMove();
+        }
 
         List<RocketItem> comboGroup = FindComboGroup(rocket);
         if (comboGroup.Count >= 2)

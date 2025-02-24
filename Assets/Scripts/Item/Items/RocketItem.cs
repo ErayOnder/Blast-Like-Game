@@ -58,7 +58,7 @@ public class RocketItem : Item
                     if (item != null && item.gameObject != null)
                     {
                         if (item is RocketItem r && r.RocketType != this.rocketType)
-                            RocketManager.Instance.ExplodeRocket(r);
+                            RocketManager.Instance.ExplodeRocket(r, false);
                         else
                             item.TryExecute(source);
                     }
@@ -80,7 +80,7 @@ public class RocketItem : Item
                     if (item != null && item.gameObject != null)
                     {
                         if (item is RocketItem r && r.RocketType != this.rocketType)
-                            RocketManager.Instance.ExplodeRocket(r);
+                            RocketManager.Instance.ExplodeRocket(r, false);
                         else
                             item.TryExecute(source);
                     }
