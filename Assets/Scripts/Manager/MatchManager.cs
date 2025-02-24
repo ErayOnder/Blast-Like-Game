@@ -106,7 +106,8 @@ public class MatchManager : Singleton<MatchManager>
     {
         if (containsBonus)
         {
-            Item rocket = ItemFactory.Instance.CreateItem(ItemType.Rocket, startCell.GameGrid.itemsParent);
+            ItemType newType = LevelData.GetRandomRocketItemType();
+            Item rocket = ItemFactory.Instance.CreateItem(newType, startCell.GameGrid.itemsParent);
             if (rocket != null)
             {
                 startCell.Item = rocket;

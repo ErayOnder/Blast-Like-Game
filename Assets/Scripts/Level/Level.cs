@@ -36,6 +36,12 @@ public class LevelData
         ItemType.YellowCube
     };
 
+    private static readonly ItemType[] RocketTypes = new ItemType[]
+    {
+        ItemType.HorizontalRocket,
+        ItemType.VerticalRocket
+    };
+
     // Processes level info: verifies grid size, initializes grid cells, and counts obstacles.
     public LevelData(LevelInfo levelInfo)
     {
@@ -88,8 +94,8 @@ public class LevelData
             "r" => ItemType.RedCube,
             "y" => ItemType.YellowCube,
             "rand" => GetRandomCubeItemType(),
-            "hro" => ItemType.Rocket,
-            "vro" => ItemType.Rocket,
+            "hro" => ItemType.HorizontalRocket,
+            "vro" => ItemType.VerticalRocket,
             _ => GetRandomCubeItemType(),
         };
     }
@@ -97,5 +103,10 @@ public class LevelData
     public static ItemType GetRandomCubeItemType()
     {
         return CubeTypes[UnityEngine.Random.Range(0, CubeTypes.Length)];
+    }
+
+    public static ItemType GetRandomRocketItemType()
+    {
+        return RocketTypes[UnityEngine.Random.Range(0, RocketTypes.Length)];
     }
 }

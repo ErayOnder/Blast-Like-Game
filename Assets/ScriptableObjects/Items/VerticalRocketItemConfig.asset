@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40e859f365aae491faf016a78a670894, type: 3}
-  m_Name: VaseItemConfig
+  m_Name: VerticalRocketItemConfig
   m_EditorClassIdentifier: 
-  ItemType: 9
-  Clickable: 0
+  ItemType: 6
+  Clickable: 1
   Fallable: 1
   BlastsWithExlosion: 1
-  Health: 2
+  Health: 1

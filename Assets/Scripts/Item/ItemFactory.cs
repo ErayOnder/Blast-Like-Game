@@ -15,7 +15,8 @@ public class ItemFactory : Singleton<ItemFactory>
         { ItemType.BlueCube, (itemBase) => CreateCubeItem(itemBase, MatchType.Blue) },
         { ItemType.RedCube, (itemBase) => CreateCubeItem(itemBase, MatchType.Red) },
         { ItemType.YellowCube, (itemBase) => CreateCubeItem(itemBase, MatchType.Yellow) },
-        { ItemType.Rocket, CreateRocketItem },
+        { ItemType.HorizontalRocket, (itemBase) => CreateRocketItem(itemBase, RocketType.Horizontal) },
+        { ItemType.VerticalRocket, (itemBase) => CreateRocketItem(itemBase, RocketType.Vertical) },
         { ItemType.Box, CreateBoxItem },
         { ItemType.Stone, CreateStoneItem },
         { ItemType.Vase, CreateVaseItem }
@@ -45,12 +46,10 @@ public class ItemFactory : Singleton<ItemFactory>
         return cubeItem;
     }
 
-    private static Item CreateRocketItem(ItemBase itemBase)
+    private static Item CreateRocketItem(ItemBase itemBase, RocketType rocketOrientation)
     {
         var config = Instance.configDatabase.GetConfig(itemBase.ItemType);
         var rocketItem = itemBase.gameObject.AddComponent<RocketItem>();
-        RocketType rocketOrientation = UnityEngine.Random.value > 0.5f ? RocketType.Horizontal : RocketType.Vertical;
-
         rocketItem.InitializeConfig(config, Instance.spriteConfig, rocketOrientation);
         return rocketItem;
     }

@@ -14,9 +14,7 @@ public class RocketItem : Item
         Sprite selectedSprite = null;
         if (spriteConfig != null)
         {
-            selectedSprite = rocketType == RocketType.Horizontal 
-                ? spriteConfig.GetSpriteForItemType(config.ItemType) 
-                : spriteConfig.GetBonusSpriteForItemType(config.ItemType);
+            selectedSprite = spriteConfig.GetSpriteForItemType(config.ItemType);
         }
         base.InitializeFromProperties(config, selectedSprite);
     }

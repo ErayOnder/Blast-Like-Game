@@ -8,7 +8,8 @@ public enum ItemType
     YellowCube,
     BlueCube,
     RedCube,
-    Rocket,
+    HorizontalRocket,
+    VerticalRocket,
     Box,
     Stone,
     Vase

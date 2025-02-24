@@ -67,7 +67,7 @@ public class Item : MonoBehaviour
             }
             fallAnimation.item = this;
         }
-        if (itemType == ItemType.Rocket)
+        if (itemType == ItemType.HorizontalRocket || itemType == ItemType.VerticalRocket)
         {
             if (rocketAnimation == null)
             {

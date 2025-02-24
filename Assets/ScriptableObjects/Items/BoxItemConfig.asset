@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e859f365aae491faf016a78a670894, type: 3}
   m_Name: BoxItemConfig
   m_EditorClassIdentifier: 
-  ItemType: 6
+  ItemType: 7
   Clickable: 0
   Fallable: 0
   BlastsWithExlosion: 1

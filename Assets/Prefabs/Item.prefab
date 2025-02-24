@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8078166125312780498}
   - component: {fileID: 4330867544547054279}
-  - component: {fileID: 1305064139512631321}
+  - component: {fileID: 8488888133315134119}
   - component: {fileID: 6180182795824971}
   - component: {fileID: 5910030630791679265}
   m_Layer: 0
@@ -52,8 +52,8 @@ MonoBehaviour:
   Fallable: 1
   BlastsWithExlosion: 0
   Health: 1
-  FallAnimation: {fileID: 1305064139512631321}
---- !u!114 &1305064139512631321
+  FallAnimation: {fileID: 0}
+--- !u!114 &8488888133315134119
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,8 +86,6 @@ MonoBehaviour:
   horizontalRightSprite: {fileID: -4731576832940087401, guid: e723df777977f4588b5f3092d24c3d25, type: 3}
   verticalUpSprite: {fileID: 51141016974189086, guid: c2fe1a531006643fab1c0668c8bc7e1c, type: 3}
   verticalDownSprite: {fileID: -4697989437084310921, guid: 8d769cc62d3484376bba5d25e82cf5b6, type: 3}
-  smokeParticlePrefab: {fileID: 3439004282766877969, guid: 447f02d62556748d9a044299b79ab52e, type: 3}
-  starParticlePrefab: {fileID: 3439004282766877969, guid: 8e93496aaf77c42759134e39781c3dc7, type: 3}
 --- !u!212 &5910030630791679265
 SpriteRenderer:
   m_ObjectHideFlags: 0
