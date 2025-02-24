@@ -39,18 +39,16 @@ public class Cell : MonoBehaviour
 
     public void CellTapped()
     {
-        if (item == null)
+        if (item == null || !item.clickable)
             return;
 
-        RocketItem rocket = item as RocketItem;
-        if (rocket != null)
+        if (item is RocketItem rocket)
         {
             RocketManager.Instance.ExplodeRocket(rocket, true);
             return;
         }
 
-        CubeItem cube = item as CubeItem;
-        if (cube != null)
+        if (item is CubeItem cube)
         {
             MatchManager.Instance.ProcessMatch(this);
         }

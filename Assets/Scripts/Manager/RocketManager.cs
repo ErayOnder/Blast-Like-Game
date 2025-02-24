@@ -72,7 +72,7 @@ public class RocketManager : Singleton<RocketManager>
                 continue;
 
             Item targetItem = cell.Item;
-            if (!targetItem.blastsWithExplosion)
+            if (!targetItem.destructibleWithRocket)
                 break;
 
             itemsToDestroy.Add(targetItem);
@@ -105,8 +105,6 @@ public class RocketManager : Singleton<RocketManager>
                 if (cell == null || cell.Item == null)
                     continue;
                 Item targetItem = cell.Item;
-                if (!targetItem.blastsWithExplosion)
-                    continue;
                 RocketItem targetRocket = targetItem as RocketItem;
                 if (targetRocket != null)
                 {
@@ -239,7 +237,7 @@ public class RocketManager : Singleton<RocketManager>
 
             Item targetItem = cell.Item;
 
-            if (!targetItem.blastsWithExplosion)
+            if (!targetItem.destructibleWithRocket)
                 break;
 
             if (targetItem is IDestructibleObstacle)

@@ -6,7 +6,8 @@ public class Item : MonoBehaviour
     public ItemType itemType;
     public bool clickable;
     public bool fallable;
-    public bool blastsWithExplosion;
+    public bool destructibleWithRocket;
+    public bool destructibleWithBlast;
     public int health;
 
     public FallAnimation fallAnimation;
@@ -51,7 +52,8 @@ public class Item : MonoBehaviour
         itemType = config.ItemType;
         clickable = config.Clickable;
         fallable = config.Fallable;
-        blastsWithExplosion = config.BlastsWithExlosion;
+        destructibleWithRocket = config.DestructibleWithRocket;
+        destructibleWithBlast = config.DestructibleWithBlast;
         health = config.Health;
         
         if (fallable)

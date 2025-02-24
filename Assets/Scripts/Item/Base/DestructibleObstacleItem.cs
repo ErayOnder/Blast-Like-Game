@@ -12,12 +12,13 @@ public abstract class DestructibleObstacleItem : Item, IDestructibleObstacle
     // Applies damage, reduces health, and destroys the item when depleted.
     public virtual void ApplyDamage(DamageSource source)
     {
-        if (!CanApplyDamage(source))
+        if (!destructibleWithRocket && source == DamageSource.Rocket)
+            return;
+        if (!destructibleWithBlast && source == DamageSource.Blast)
             return;
 
         health--;
         OnDamageReceived(source);
-
         if (health <= 0)
         {
             LevelProgress.Instance.ProcessObstacleDestroyed(itemType);
@@ -26,13 +27,6 @@ public abstract class DestructibleObstacleItem : Item, IDestructibleObstacle
         }
     }
 
-    // Override this method in subclasses if damage should be applied conditionally.
-    protected virtual bool CanApplyDamage(DamageSource source)
-    {
-        return true;
-    }
-
-    // Hook for extra behavior right after taking damage.
     protected virtual void OnDamageReceived(DamageSource source)
     {
         // Default: no extra action.

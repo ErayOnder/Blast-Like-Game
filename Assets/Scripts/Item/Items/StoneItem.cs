@@ -7,9 +7,4 @@ public class StoneItem : DestructibleObstacleItem
         InitializeObstacle(config, spriteConfig);
     }
 
-    protected override bool CanApplyDamage(DamageSource source)
-    {
-        // Only subtract health when the damage source is Rocket.
-        return source == DamageSource.Rocket;
-    }
 }
