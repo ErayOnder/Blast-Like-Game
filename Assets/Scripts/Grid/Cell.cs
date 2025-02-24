@@ -44,7 +44,7 @@ public class Cell : MonoBehaviour
 
         if (item is RocketItem rocket)
         {
-            RocketManager.Instance.ExplodeRocket(rocket, true);
+            RocketManager.Instance.ExplodeRocket(rocket, false, true);
             return;
         }
 

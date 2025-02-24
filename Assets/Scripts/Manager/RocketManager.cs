@@ -5,18 +5,18 @@ using System.Collections.Generic;
 public class RocketManager : Singleton<RocketManager>
 {
     // Explodes a rocket; triggers combo explosion if adjacent rockets are found.
-    public void ExplodeRocket(RocketItem rocket, bool isInitialClick = false)
+    public void ExplodeRocket(RocketItem rocket, bool isTriggered, bool isInitialClick)
     {
         if (rocket == null)
             return;
 
         if (isInitialClick)
         {
-            LevelProgress.Instance.ProcessMove();
+            rocket.processMove = true;
         }
 
         List<RocketItem> comboGroup = FindComboGroup(rocket);
-        if (comboGroup.Count >= 2)
+        if (comboGroup.Count >= 2 && !isTriggered)
         {
             ExplodeCombo(rocket, comboGroup);
         }
@@ -28,7 +28,7 @@ public class RocketManager : Singleton<RocketManager>
         GameEvents.BoardUpdated();
     }
 
-    private void ExplodeRocketSingle(RocketItem rocket)
+    private void ExplodeRocketSingle(RocketItem rocket, bool flag= false)
     {
         if (rocket == null || rocket.Cell == null)
             return;
@@ -110,7 +110,7 @@ public class RocketManager : Singleton<RocketManager>
             }
         }
 
-        // Create and explode 3 horizontal rockets
+        // Create and explode horizontal rockets
         for (int y = centerY - 1; y <= centerY + 1; y++)
         {
             if (y < 0 || y >= grid.Height)
@@ -125,7 +125,7 @@ public class RocketManager : Singleton<RocketManager>
             }
         }
 
-        // Create and explode 3 vertical rockets
+        // Create and explode vertical rockets, set processMove on the last one
         for (int x = centerX - 1; x <= centerX + 1; x++)
         {
             if (x < 0 || x >= grid.Width)
@@ -137,6 +137,12 @@ public class RocketManager : Singleton<RocketManager>
                 Cell targetCell = grid.Grid[x, centerY];    
                 rocket.transform.position = targetCell.transform.position;
                 rocket.Cell = targetCell;
+                
+                // Set processMove true only for the last rocket
+                if (x == centerX + 1 || (x + 1 >= grid.Width && x == centerX))
+                {
+                    rocket.processMove = true;
+                }
                 ExplodeRocketSingle(rocket);
             }
         }

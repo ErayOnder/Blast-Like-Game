@@ -8,6 +8,8 @@ public class RocketItem : Item
 
     public RocketType RocketType => rocketType;
 
+    [HideInInspector] public bool processMove = false;
+
     public void InitializeConfig(ItemConfig config, ItemSpriteConfig spriteConfig, RocketType rocketType)
     {
         this.rocketType = rocketType;
@@ -58,13 +60,14 @@ public class RocketItem : Item
                     if (item != null && item.gameObject != null)
                     {
                         if (item is RocketItem r && r.RocketType != this.rocketType)
-                            RocketManager.Instance.ExplodeRocket(r, false);
+                            RocketManager.Instance.ExplodeRocket(r, true, false);
                         else
                             item.TryExecute(source);
                     }
                 }
                 base.TryExecute(source);
                 GameEvents.BoardUpdated();
+                if (processMove) GameEvents.GameStateUpdated();
             });
         }
         else
@@ -80,13 +83,14 @@ public class RocketItem : Item
                     if (item != null && item.gameObject != null)
                     {
                         if (item is RocketItem r && r.RocketType != this.rocketType)
-                            RocketManager.Instance.ExplodeRocket(r, false);
+                            RocketManager.Instance.ExplodeRocket(r, true, false);
                         else
                             item.TryExecute(source);
                     }
                 }
                 base.TryExecute(source);
                 GameEvents.BoardUpdated();
+                if (processMove) GameEvents.GameStateUpdated();
             });
         }
     }

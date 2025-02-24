@@ -21,6 +21,16 @@ public class LevelProgress : Singleton<LevelProgress>
 
     private bool levelEnded = false;
 
+    void OnEnable()
+    {
+        GameEvents.OnGameStateUpdated += ProcessMove;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnGameStateUpdated -= ProcessMove;
+    }
+
     // Init: sets up moves and goal counts from level data.
     public void Initialize(LevelData levelData)
     {

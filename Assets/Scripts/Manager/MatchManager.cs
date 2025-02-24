@@ -29,7 +29,7 @@ public class MatchManager : Singleton<MatchManager>
         BlastAdjacentObstacles(matchedCells);
         TryCreateBonusRocket(containsBonus, startCell);
 
-        LevelProgress.Instance.ProcessMove();
+        GameEvents.GameStateUpdated();
         GameEvents.BoardUpdated();
     }
 
