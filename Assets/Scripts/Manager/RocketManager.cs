@@ -105,6 +105,13 @@ public class RocketManager : Singleton<RocketManager>
                 Cell cell = grid.Grid[x, y];
                 if (cell != null && cell.Item != null)
                 {
+                    if (cell.Item is DestructibleObstacleItem destructibleObstacleItem)
+                    {
+                        if (destructibleObstacleItem.health > 0)
+                        {
+                            destructibleObstacleItem.health = 0;
+                        }
+                    }
                     cell.Item.TryExecute(DamageSource.Rocket);
                 }
             }
